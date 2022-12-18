@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
-import 'package:gym/presentation/screens/login_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
@@ -38,7 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
           SizedBox(
             height: 40.h,
             width: 50.h,
-            child: LottieBuilder.asset(AssetResources.dumble1),
+            child: LottieBuilder.asset(
+              AssetResources.dumble1,
+              repeat: false,
+            ),
           ),
           Text(
             'GYMNER',

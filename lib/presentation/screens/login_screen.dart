@@ -1,8 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym/core/resources/page_resources.dart';
+import 'package:gym/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym/presentation/widgets/primary_button.dart';
+import 'package:gym/presentation/widgets/text_input_form_field.dart';
+import 'package:gym/service/model/auth_model.dart';
+import 'package:lottie/lottie.dart';
+import 'package:sizer/sizer.dart';
 import 'package:gym/core/resources/asset_resources.dart';
-import 'package:gym/core/resources/style_resources.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +22,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  late AuthBloc _authBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _authBloc = BlocProvider.of(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,123 +48,73 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Image.asset(AssetResources.logo),
                 ),
                 SizedBox(height: 10.h),
-                TextInputFormField(
-                  controller: _usernameController,
-                  hint: 'Email',
-                  prefixIcon: const Icon(Icons.alternate_email_rounded),
-                  textInputAction: TextInputAction.next,
+                SizedBox(
+                  height: 6.h,
+                  child: TextInputFormField(
+                    controller: _usernameController,
+                    hint: 'Email',
+                    prefixIcon: const Icon(Icons.alternate_email_rounded),
+                    textInputAction: TextInputAction.next,
+                  ),
                 ),
                 SizedBox(
                   height: 2.h,
                 ),
-                TextInputFormField(
-                  hint: 'Password',
-                  controller: _passwordController,
-                  prefixIcon: const Icon(Icons.password_outlined),
-                  suffixIcon: IconButton(
-                    onPressed: () =>
-                        setState(() => isPasswordVisible = !isPasswordVisible),
-                    icon: isPasswordVisible
-                        ? const Icon(Icons.visibility_off_rounded)
-                        : const Icon(Icons.visibility_rounded),
+                SizedBox(
+                  height: 6.h,
+                  child: TextInputFormField(
+                    hint: 'Password',
+                    controller: _passwordController,
+                    prefixIcon: const Icon(Icons.password_outlined),
+                    suffixIcon: IconButton(
+                      onPressed: () => setState(
+                          () => isPasswordVisible = !isPasswordVisible),
+                      icon: isPasswordVisible
+                          ? const Icon(Icons.visibility_off_rounded)
+                          : const Icon(Icons.visibility_rounded),
+                    ),
+                    isPasswordVisible: isPasswordVisible,
                   ),
-                  isPasswordVisible: isPasswordVisible,
                 ),
                 SizedBox(
                   height: 6.h,
                 ),
-                const PrimaryButton(label: 'Login '),
+                BlocConsumer<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    log(state.toString());
+
+                    if (state is AuthError) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(state.error)));
+                    }
+                    if (state is AuthSucess) {
+                      Navigator.of(context).pushNamed(PageResources.homeScreen);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return PrimaryButton(
+                        label: '',
+                        child: LottieBuilder.asset(AssetResources.dumbleWhite),
+                      );
+                    }
+                    return PrimaryButton(
+                        label: 'Login',
+                        ontap: () {
+                          final credential = AuthModel(
+                            email: _usernameController.text,
+                            password: _passwordController.text,
+                          );
+                          _authBloc.add(
+                            LoginEvent(credentials: credential),
+                          );
+                        });
+                  },
+                ),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
-    Key? key,
-    required this.label,
-    this.ontap,
-  }) : super(key: key);
-  final String label;
-  final Function()? ontap;
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: ontap,
-        child: Container(
-          height: 7.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: StyleResources.primaryColor),
-          alignment: Alignment.center,
-          child: Text(
-            label,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 16.sp,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TextInputFormField extends StatelessWidget {
-  const TextInputFormField({
-    Key? key,
-    this.hint,
-    required this.controller,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.isPasswordVisible,
-    this.textInputAction,
-    this.textInputType,
-  }) : super(key: key);
-  final String? hint;
-  final TextEditingController controller;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final bool? isPasswordVisible;
-  final TextInputAction? textInputAction;
-  final TextInputType? textInputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: isPasswordVisible ?? false,
-      controller: controller,
-      textInputAction: textInputAction,
-      keyboardType: textInputType,
-      obscuringCharacter: '*',
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.primaryColor),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.errorColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.primaryColor),
-        ),
-        hintText: hint,
       ),
     );
   }
