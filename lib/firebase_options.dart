@@ -44,40 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB5nQBUY4QpOv_UlvZdy0Zd3YU2OpX7Oik',
-    appId: '1:979118426228:web:8b33d8b0b605928f806921',
-    messagingSenderId: '979118426228',
-    projectId: 'matrix-billing',
-    authDomain: 'matrix-billing.firebaseapp.com',
-    storageBucket: 'matrix-billing.appspot.com',
-    measurementId: 'G-2HCHWF3G27',
+    apiKey: 'AIzaSyAjjPpdBuDZy5XBaOj0SJKbw2iixtxbT-A',
+    appId: '1:526763236381:web:9c939998c1c201b25c3af4',
+    messagingSenderId: '526763236381',
+    projectId: 'club-manager-2d108',
+    authDomain: 'club-manager-2d108.firebaseapp.com',
+    storageBucket: 'club-manager-2d108.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBQoG0ODH0xP2p720MqERXwun-tN5mb_0g',
-    appId: '1:979118426228:android:89b8057f2bbf8cab806921',
-    messagingSenderId: '979118426228',
-    projectId: 'matrix-billing',
-    storageBucket: 'matrix-billing.appspot.com',
+    apiKey: 'AIzaSyBsPM5M5QDKdA3V1Y9zCYfnaMdwOFmZI18',
+    appId: '1:526763236381:android:225b67fb5c77da895c3af4',
+    messagingSenderId: '526763236381',
+    projectId: 'club-manager-2d108',
+    storageBucket: 'club-manager-2d108.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAyW6zKhnkk6NfJjxnFAdusyBKBhsyO8UI',
-    appId: '1:979118426228:ios:74c0c07ca0e7cba4806921',
-    messagingSenderId: '979118426228',
-    projectId: 'matrix-billing',
-    storageBucket: 'matrix-billing.appspot.com',
-    iosClientId: '979118426228-pgjtgmlj5curo4ht5q0bclulpnhajsev.apps.googleusercontent.com',
-    iosBundleId: 'com.example.billingapp',
+    apiKey: 'AIzaSyA_KgMt3R_GhFAasvwDLx-Uwg0BQhcDGG8',
+    appId: '1:526763236381:ios:c7b854b11de5ed4d5c3af4',
+    messagingSenderId: '526763236381',
+    projectId: 'club-manager-2d108',
+    storageBucket: 'club-manager-2d108.appspot.com',
+    iosClientId: '526763236381-l45ttroh770mab50l0e30anlgqn8sacj.apps.googleusercontent.com',
+    iosBundleId: 'com.example.gym',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAyW6zKhnkk6NfJjxnFAdusyBKBhsyO8UI',
-    appId: '1:979118426228:ios:74c0c07ca0e7cba4806921',
-    messagingSenderId: '979118426228',
-    projectId: 'matrix-billing',
-    storageBucket: 'matrix-billing.appspot.com',
-    iosClientId: '979118426228-pgjtgmlj5curo4ht5q0bclulpnhajsev.apps.googleusercontent.com',
-    iosBundleId: 'com.example.billingapp',
+    apiKey: 'AIzaSyA_KgMt3R_GhFAasvwDLx-Uwg0BQhcDGG8',
+    appId: '1:526763236381:ios:c7b854b11de5ed4d5c3af4',
+    messagingSenderId: '526763236381',
+    projectId: 'club-manager-2d108',
+    storageBucket: 'club-manager-2d108.appspot.com',
+    iosClientId: '526763236381-l45ttroh770mab50l0e30anlgqn8sacj.apps.googleusercontent.com',
+    iosBundleId: 'com.example.gym',
   );
 }

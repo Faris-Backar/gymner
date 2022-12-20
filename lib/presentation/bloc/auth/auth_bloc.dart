@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // prefs.setBool(PrefResources.IS_LOGGED_IN, true);
       emit(AuthSucess());
     } on FirebaseAuthException catch (e) {
+      log("firebase exception =>$e");
       emit(
         AuthError(error: e.code),
       );

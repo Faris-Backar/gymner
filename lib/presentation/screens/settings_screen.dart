@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                           // child: Image.asset(AssetResources.rupee),
                         ),
                         Text(
-                          'Control Packages',
+                          'Packages',
                           style: TextStyle(
                               fontSize: 14.sp, fontWeight: FontWeight.w500),
                         ),

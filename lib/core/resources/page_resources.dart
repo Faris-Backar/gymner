@@ -8,4 +8,5 @@ class PageResources {
   static const memberScreen = '/members';
   static const settingsScreen = '/settings';
   static const packagePage = '/package';
+  static const createPackageScreen = '/create-package';
 }

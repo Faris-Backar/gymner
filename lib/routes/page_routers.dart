@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/presentation/screens/add_member_screen.dart';
+import 'package:gym/presentation/screens/create_package_screen.dart';
 import 'package:gym/presentation/screens/home_screen.dart';
 import 'package:gym/presentation/screens/landing_screen.dart';
 import 'package:gym/presentation/screens/login_screen.dart';
@@ -30,6 +31,10 @@ class PageRouters {
     } else if (settings.name == PageResources.settingsScreen) {
       return CupertinoPageRoute(
         builder: (context) => const SettingsScreen(),
+      );
+    } else if (settings.name == PageResources.createPackageScreen) {
+      return CupertinoPageRoute(
+        builder: (context) => const CreatePackageScreen(),
       );
     } else if (settings.name == PageResources.packagePage) {
       return CupertinoPageRoute(
