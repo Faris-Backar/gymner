@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:gym/service/model/package_model.dart';
 
 class PackageRepository {
-  final db = FirebaseFirestore.instance;
+  final FirebaseFirestore db;
+  PackageRepository({
+    required this.db,
+  });
 
   Future<List<PackageModel>> getPackages() {
     try {

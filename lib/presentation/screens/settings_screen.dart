@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/presentation/widgets/default_back_button.dart';
 import 'package:sizer/sizer.dart';

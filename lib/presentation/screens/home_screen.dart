@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/page_resources.dart';
+import 'package:gym/di/di.dart';
+import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,11 +16,13 @@ class HomeScreen extends StatelessWidget {
         'page': PageResources.addMemberScreen,
       },
       {'name': 'View Members', 'page': PageResources.memberScreen},
-      {'name': 'Fees Pending', 'page': () {}},
-      {'name': 'Fees Payment', 'page': () {}},
+      {'name': 'Fees Pending', 'page': PageResources.pendingFeeScreen},
+      {'name': 'Fees Payment', 'page': PageResources.feePaymentScreen},
       {'name': 'Reports', 'page': () {}},
       {'name': 'Settings', 'page': PageResources.settingsScreen},
     ];
+    final feePaymentBloc = getIt<FeePaymentBloc>();
+    feePaymentBloc.add(GetRecentTransactionsEvent());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -98,6 +103,16 @@ class HomeScreen extends StatelessWidget {
                         fontSize: 14.sp,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  BlocBuilder(
+                    bloc: feePaymentBloc,
+                    builder: (context, state) {
+                      if (state is GetRecentTransactionsSucess) {}
+                      return const SizedBox.shrink();
+                    },
                   )
                 ],
               ),

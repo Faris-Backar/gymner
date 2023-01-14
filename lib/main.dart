@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym/firebase_options.dart';
 import './gymner_app.dart';
+import './di/di.dart' as di;
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.white,
   ));
+  di.setup();
   runApp(const Gymner());
 }

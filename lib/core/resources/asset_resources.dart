@@ -12,6 +12,7 @@ class AssetResources {
 
   // images
   static const logo = '${imagesPath}logo.png';
+  static const defaultImage = '${imagesPath}default_image.png';
 
   // icons
   static const rupee = 'assets/icons/rupee.png';

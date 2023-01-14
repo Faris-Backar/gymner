@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:gym/core/resources/style_resources.dart';
 
 class TextInputFormField extends StatelessWidget {
@@ -11,6 +12,8 @@ class TextInputFormField extends StatelessWidget {
     this.isPasswordVisible,
     this.textInputAction,
     this.textInputType,
+    this.onChanged,
+    this.validator,
   }) : super(key: key);
   final String? hint;
   final TextEditingController controller;
@@ -19,6 +22,8 @@ class TextInputFormField extends StatelessWidget {
   final bool? isPasswordVisible;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
+  final Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,8 @@ class TextInputFormField extends StatelessWidget {
       textInputAction: textInputAction,
       keyboardType: textInputType,
       obscuringCharacter: '*',
+      onChanged: onChanged,
+      validator: validator,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
         prefixIcon: prefixIcon,

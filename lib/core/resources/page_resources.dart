@@ -9,4 +9,8 @@ class PageResources {
   static const settingsScreen = '/settings';
   static const packagePage = '/package';
   static const createPackageScreen = '/create-package';
+  static const feePaymentScreen = '/fee-payment';
+  static const pendingFeeScreen = '/pending-fees';
+  static const smsScreen = '/sms';
+  static const viewMembersScreen = '/view-member';
 }

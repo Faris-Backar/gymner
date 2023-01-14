@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/page_resources.dart';
+import 'package:gym/core/resources/pref_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,11 +22,21 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   init() async {
-    Future.delayed(
-      const Duration(seconds: 3),
-      () =>
-          Navigator.of(context).pushReplacementNamed(PageResources.loginScreen),
-    );
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool(PrefResources.IS_LOGGED_IN);
+    if (isLoggedIn != null) {
+      Future.delayed(
+        const Duration(seconds: 3),
+        () => Navigator.of(context)
+            .pushReplacementNamed(PageResources.homeScreen),
+      );
+    } else {
+      Future.delayed(
+        const Duration(seconds: 3),
+        () => Navigator.of(context)
+            .pushReplacementNamed(PageResources.loginScreen),
+      );
+    }
   }
 
   @override
