@@ -2,10 +2,7 @@
 
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/functions.dart';
@@ -355,13 +352,14 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             return PrimaryButton(
               label: 'Add Member',
               ontap: () {
+                final uid = getIt<Uuid>();
+                final uidValue = uid.v4();
                 if (selectedImage != null) {
-                  _membersBloc
-                      .add(UploadProfileImageEvent(image: selectedImage!));
+                  _membersBloc.add(UploadProfileImageEvent(
+                      image: selectedImage!, uid: uidValue));
                 } else {
-                  final uid = getIt<Uuid>();
                   final membersModel = MembersModel(
-                    uid: uid.v4(),
+                    uid: uidValue,
                     registerNumber: int.parse(regnumberController.text),
                     name: nameController.text,
                     mobileNumber: int.parse(mobileController.text),

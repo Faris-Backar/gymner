@@ -112,7 +112,7 @@ class _PendingFeeScreenState extends State<PendingFeeScreen> {
           List<SmsModel> smsToBeSent = [];
           for (var i = 0; i < feePendingMembersData.length; i++) {
             final smsData =
-                SmsModel(member: feePendingMembersData[i], isSelected: true);
+                SmsModel(member: feePendingMembersData[i], isSelected: false);
             smsToBeSent.add(smsData);
           }
           Navigator.of(context)

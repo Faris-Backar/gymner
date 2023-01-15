@@ -28,6 +28,15 @@ class GetIndividualMemberEvent extends MembersEvent {
   List<Object> get props => [regNumber];
 }
 
+class GetIndividualMemberByUidEvent extends MembersEvent {
+  final String uid;
+  const GetIndividualMemberByUidEvent({
+    required this.uid,
+  });
+  @override
+  List<Object> get props => [uid];
+}
+
 class SearchMembersEvent extends MembersEvent {
   final String query;
   const SearchMembersEvent({
@@ -39,8 +48,10 @@ class SearchMembersEvent extends MembersEvent {
 
 class UploadProfileImageEvent extends MembersEvent {
   final File image;
+  final String uid;
   const UploadProfileImageEvent({
     required this.image,
+    required this.uid,
   });
 }
 

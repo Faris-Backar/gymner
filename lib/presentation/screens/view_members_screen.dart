@@ -110,7 +110,7 @@ class ViewMembersScreen extends StatelessWidget {
                         }
                         if (state is GetFeePaymentDetailsSucess) {
                           return SizedBox(
-                            width: 100.w,
+                            width: 80.w,
                             child: DataTable(
                               border: TableBorder(
                                 borderRadius: BorderRadius.circular(10),

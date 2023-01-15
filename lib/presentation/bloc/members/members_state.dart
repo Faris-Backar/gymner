@@ -20,6 +20,12 @@ class GetMembersLoaded extends MembersState {
   List<Object> get props => [membersList];
 }
 
+class GetIndividualMemberLoaded extends MembersState {
+  final MembersModel membersModel;
+
+  const GetIndividualMemberLoaded({required this.membersModel});
+}
+
 class CreateMembersLoaded extends MembersState {}
 
 class GetIndividualMembersLoaded extends MembersState {

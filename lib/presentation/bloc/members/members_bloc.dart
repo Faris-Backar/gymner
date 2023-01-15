@@ -21,6 +21,7 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     on<SearchMembersEvent>(_searchMembers);
     on<UploadProfileImageEvent>(_uploadProfileImage);
     on<InitMembersEvent>(_init);
+    on<GetIndividualMemberByUidEvent>(_getIndividualMembersbyUid);
   }
 
   _createMembers(CreateMembersEvent event, Emitter<MembersState> emit) async {
@@ -57,18 +58,18 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     }
   }
 
-  // _getIndividualMembers(
-  //     GetIndividualMemberEvent event, Emitter<MembersState> emit) async {
-  //   emit(MembersInitial());
-  //   emit(MembersLoadding());
-  //   try {
-  //     final response =
-  //         await membersRepository.getIndividualMembers(uid:);
-  //     emit(GetMembersLoaded(membersList: response));
-  //   } catch (e) {
-  //     emit(MembersFailed(error: e.toString()));
-  //   }
-  // }
+  _getIndividualMembersbyUid(
+      GetIndividualMemberByUidEvent event, Emitter<MembersState> emit) async {
+    emit(MembersInitial());
+    emit(MembersLoadding());
+    try {
+      final response =
+          await membersRepository.getIndividualMembers(uid: event.uid);
+      emit(GetIndividualMembersLoaded(membersModel: response));
+    } catch (e) {
+      emit(MembersFailed(error: e.toString()));
+    }
+  }
 
   _uploadProfileImage(
       UploadProfileImageEvent event, Emitter<MembersState> emit) async {
@@ -78,7 +79,7 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
       Uint8List? file = event.image.readAsBytesSync();
 
       UploadTask task =
-          FirebaseStorage.instance.ref().child("files/profile").putData(file);
+          FirebaseStorage.instance.ref().child("files/").putFile(event.image);
       emit(UploadImageLoading(taskSnapshot: task.snapshotEvents));
       String imageUrl = '';
       await task.snapshot.ref
