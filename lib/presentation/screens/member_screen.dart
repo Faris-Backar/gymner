@@ -3,15 +3,22 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym/presentation/widgets/text_input_form_field.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
 
-class MemberScreen extends StatelessWidget {
+class MemberScreen extends StatefulWidget {
   const MemberScreen({super.key});
 
+  @override
+  State<MemberScreen> createState() => _MemberScreenState();
+}
+
+class _MemberScreenState extends State<MemberScreen> {
+  final _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final membersBloc = getIt<MembersBloc>();
@@ -31,56 +38,83 @@ class MemberScreen extends StatelessWidget {
           )
         ],
       ),
-      body: BlocBuilder(
-        bloc: membersBloc,
-        builder: (context, state) {
-          log(state.toString());
-          if (state is MembersLoadding) {
-            return Center(
-              child: SizedBox(
-                height: 10.h,
-                width: 10.h,
-              ),
-            );
-          }
-          if (state is MembersFailed) {
-            return Center(
-              child: Text(state.error),
-            );
-          }
-          if (state is GetMembersLoaded) {
-            final membersData = state.membersList;
-            if (membersData.isEmpty) {
-              return Center(
-                child: Text(
-                  "No data available",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: TextInputFormField(
+                      controller: _searchController, hint: 'Search'),
                 ),
-              );
-            }
-            return ListView.separated(
-              padding: const EdgeInsets.all(16.0),
-              separatorBuilder: (context, index) => SizedBox(height: 2.h),
-              itemCount: membersData.length,
-              itemBuilder: (context, index) => InkWell(
-                onTap: () => Navigator.of(context).pushNamed(
-                    PageResources.viewMembersScreen,
-                    arguments: membersData[index]),
-                child: MembersCard(
-                  mobileNumber: membersData[index].mobileNumber.toString(),
-                  name: membersData[index].name,
-                  registrationNumber:
-                      membersData[index].registerNumber.toString(),
-                  profilePicUrl: membersData[index].propicUrl,
-                ),
+                IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.search_rounded))
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: BlocBuilder(
+                bloc: membersBloc,
+                builder: (context, state) {
+                  log(state.toString());
+                  if (state is MembersLoadding) {
+                    return Center(
+                      child: SizedBox(
+                        height: 10.h,
+                        width: 10.h,
+                      ),
+                    );
+                  }
+                  if (state is MembersFailed) {
+                    return Center(
+                      child: Text(state.error),
+                    );
+                  }
+                  if (state is GetMembersLoaded) {
+                    final membersData = state.membersList;
+                    if (membersData.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No data available",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      );
+                    }
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      padding: const EdgeInsets.all(16.0),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 2.h),
+                      itemCount: membersData.length,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () => Navigator.of(context).pushNamed(
+                            PageResources.viewMembersScreen,
+                            arguments: membersData[index]),
+                        child: MembersCard(
+                          mobileNumber:
+                              membersData[index].mobileNumber.toString(),
+                          name: membersData[index].name,
+                          registrationNumber:
+                              membersData[index].registerNumber.toString(),
+                          profilePicUrl: membersData[index].propicUrl,
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/page_resources.dart';
@@ -125,57 +127,65 @@ class HomeScreen extends StatelessWidget {
                         bloc: membersBloc,
                         builder: (context, state2) {
                           if (state2 is GetMembersLoaded) {
+                            log(txData.toString());
                             final membersData = state2.membersList;
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: txData.length,
-                                itemBuilder: (context, index) {
-                                  final individualMember =
-                                      membersData.singleWhere((element) =>
-                                          element.uid ==
-                                          state1.transactionList[index]
-                                              .memberuid);
-                                  return Card(
-                                    color: Colors.blueGrey[100],
-                                    elevation: 5.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Name : ${individualMember.name}',
-                                                ),
-                                                Text(
-                                                    'Date : ${DateFormat('dd-MM-yyyy').format(txData[index].feesDate)}'),
-                                              ],
+                            if (txData.isNotEmpty) {
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: txData.length,
+                                  itemBuilder: (context, index) {
+                                    final individualMember =
+                                        membersData.singleWhere((element) =>
+                                            element.uid ==
+                                            state1.transactionList[index]
+                                                .memberuid);
+                                    return Card(
+                                      color: Colors.blueGrey[100],
+                                      elevation: 5.0,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              flex: 4,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Name : ${individualMember.name}',
+                                                  ),
+                                                  Text(
+                                                      'Date : ${DateFormat('dd-MM-yyyy').format(txData[index].feesDate)}'),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              '\u{20B9}${txData[index].amountpayed}',
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Text(
+                                                '\u{20B9}${txData[index].amountpayed}',
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                });
+                                    );
+                                  });
+                            } else {
+                              return const Center(
+                                child: Text('No Transactions found.'),
+                              );
+                            }
                           }
-                          return SizedBox.shrink();
+                          return const SizedBox.shrink();
                         },
                       );
                     }

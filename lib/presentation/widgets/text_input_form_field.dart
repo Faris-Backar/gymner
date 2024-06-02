@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:gym/core/resources/style_resources.dart';
 
 class TextInputFormField extends StatelessWidget {
@@ -39,21 +38,20 @@ class TextInputFormField extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        fillColor: const Color(0xFF3F4F6FF),
+        filled: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: StyleResources.primaryColor)),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.secondaryColor),
-        ),
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: StyleResources.primaryColor)),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.errorColor),
-        ),
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: StyleResources.primaryColor)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: StyleResources.secondaryColor),
-        ),
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: StyleResources.primaryColor)),
         hintText: hint,
       ),
     );

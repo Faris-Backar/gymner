@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+// import 'package:flutter_sms/flutter_sms.dart';
 import 'package:gym/presentation/widgets/primary_button.dart';
 
 import 'package:gym/service/model/sms_model.dart';
@@ -69,41 +69,41 @@ class _SmsShareScreenState extends State<SmsShareScreen> {
   Future<void> _sendSMS({required List<String> recipents}) async {
     String message =
         "This is a remainder from POWER HOUSE GYM Pattambi. your training package validity has been expired, Please make payment inorder to continue the service.\n\nThankyou\nPOWER HOUSE ";
-    String result = await sendSMS(
-            message: message, recipients: recipents, sendDirect: false)
-        .catchError((onError) {
-      if (kDebugMode) {
-        print(onError);
+    // String result = await sendSMS(
+    //         message: message, recipients: recipents, sendDirect: false)
+    //     .catchError((onError) {
+    //   if (kDebugMode) {
+    //     print(onError);
+    //   }
+    // });
+    // log(result);
+    // if (result == 'SMS Sent!') {
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       title: const Text('Successfully Send SMS'),
+    //       content: const Text('Successfully send SMS to '),
+    //       actions: [
+    //         ElevatedButton(
+    //           onPressed: () => Navigator.of(context).pop(),
+    //           child: const Text('Ok'),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+  }
+}
+
+getPermission({required List<String> recipents}) async {
+  final getsmsPermission = await Permission.sms.isDenied;
+  if (getsmsPermission) {
+    await Permission.sms.request().then((value) async {
+      if (value.isGranted) {
+        // await _sendSMS(recipents: recipents);
       }
     });
-    log(result);
-    if (result == 'SMS Sent!') {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Successfully Send SMS'),
-          content: const Text('Successfully send SMS to '),
-          actions: [
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Ok'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  getPermission({required List<String> recipents}) async {
-    final getsmsPermission = await Permission.sms.isDenied;
-    if (getsmsPermission) {
-      await Permission.sms.request().then((value) async {
-        if (value.isGranted) {
-          await _sendSMS(recipents: recipents);
-        }
-      });
-    } else if (await Permission.sms.isGranted) {
-      await _sendSMS(recipents: recipents);
-    }
+  } else if (await Permission.sms.isGranted) {
+    // await _sendSMS(recipents: recipents);
+    // }
   }
 }

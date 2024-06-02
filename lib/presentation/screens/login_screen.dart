@@ -48,14 +48,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Image.asset(AssetResources.logo),
                 ),
                 SizedBox(height: 10.h),
-                SizedBox(
-                  height: 6.h,
-                  child: TextInputFormField(
-                    controller: _usernameController,
-                    hint: 'Email',
-                    prefixIcon: const Icon(Icons.alternate_email_rounded),
-                    textInputAction: TextInputAction.next,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Email",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp),
                   ),
+                ),
+                TextInputFormField(
+                  controller: _usernameController,
+                  hint: 'Email',
+                  prefixIcon: const Icon(Icons.alternate_email_rounded),
+                  textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
                   height: 2.h,

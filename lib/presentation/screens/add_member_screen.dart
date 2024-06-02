@@ -16,7 +16,8 @@ import 'package:gym/presentation/widgets/text_input_form_field.dart';
 import 'package:gym/service/model/members_model.dart';
 import 'package:gym/service/model/package_model.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
+// import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
@@ -108,9 +109,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                         return AnimatedSwitcher(
                           duration: const Duration(milliseconds: 375),
                           child: progress == 100.0
-                              ? Row(
+                              ? const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.check_rounded,
                                       color: Colors.green,
@@ -163,7 +164,6 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                   height: 5.h,
                 ),
                 SizedBox(
-                  height: 6.h,
                   child: TextInputFormField(
                     controller: regnumberController,
                     hint: 'Register Number',
@@ -172,7 +172,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                     textInputType: TextInputType.number,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return '';
+                        return 'Please enter a valid register number';
                       }
                       return null;
                     },
@@ -182,7 +182,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                   height: 2.h,
                 ),
                 SizedBox(
-                  height: 6.h,
+                  // height: 6.h,
                   child: TextInputFormField(
                       controller: nameController,
                       hint: 'Name',
@@ -190,7 +190,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return '';
+                          return 'Please enter a valid name';
                         }
                         return null;
                       }),
@@ -199,7 +199,6 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                   height: 2.h,
                 ),
                 SizedBox(
-                  height: 6.h,
                   child: TextInputFormField(
                       controller: mobileController,
                       hint: 'Mobile Number',
@@ -208,7 +207,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       isPasswordVisible: false,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return '';
+                          return 'Please enter a valid mobile number';
                         }
                         return null;
                       }),
@@ -352,24 +351,30 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             return PrimaryButton(
               label: 'Add Member',
               ontap: () {
-                final uid = getIt<Uuid>();
-                final uidValue = uid.v4();
-                if (selectedImage != null) {
-                  _membersBloc.add(UploadProfileImageEvent(
-                      image: selectedImage!, uid: uidValue));
-                } else {
-                  final membersModel = MembersModel(
-                    uid: uidValue,
-                    registerNumber: int.parse(regnumberController.text),
-                    name: nameController.text,
-                    mobileNumber: int.parse(mobileController.text),
-                    age: int.parse(ageController.text),
-                    weight: double.parse(weightController.text),
-                    propicUrl: null,
-                    packageModel: selectedpackages!,
-                  );
-                  _membersBloc
-                      .add(CreateMembersEvent(membersModel: membersModel));
+                if (_formKey.currentState!.validate()) {
+                  final uid = getIt<Uuid>();
+                  final uidValue = uid.v4();
+                  if (selectedImage != null) {
+                    _membersBloc.add(UploadProfileImageEvent(
+                        image: selectedImage!, uid: uidValue));
+                  } else {
+                    final membersModel = MembersModel(
+                      uid: uidValue,
+                      registerNumber: int.parse(regnumberController.text),
+                      name: nameController.text,
+                      mobileNumber: int.parse(mobileController.text),
+                      age: ageController.text.isNotEmpty
+                          ? int.parse(ageController.text)
+                          : null,
+                      weight: weightController.text.isNotEmpty
+                          ? double.parse(weightController.text)
+                          : null,
+                      propicUrl: null,
+                      packageModel: selectedpackages!,
+                    );
+                    _membersBloc
+                        .add(CreateMembersEvent(membersModel: membersModel));
+                  }
                 }
               },
             );
@@ -394,9 +399,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                 Navigator.of(ctx).pop();
                 if (status.isGranted) {
                   final pickedFile = await _picker
-                      .getImage(source: ImageSource.camera)
+                      .pickImage(
+                        source: ImageSource.camera,
+                      )
                       .whenComplete(() {});
-                  final File file = File(pickedFile!.path);
+                  final File file =
+                      File(pickedFile!.path + regnumberController.text);
                   setState(() {
                     selectedImage = file;
                   });
@@ -452,16 +460,18 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                 Navigator.of(ctx).pop();
                 if (status.isGranted) {
                   final pickedFile =
-                      await _picker.getImage(source: ImageSource.gallery);
-                  final File file = File(pickedFile!.path);
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  final File file =
+                      File(pickedFile!.path + regnumberController.text);
                   setState(() {
                     selectedImage = file;
                   });
                 } else if (status.isDenied) {
                   await Permission.camera.request().then((value) async {
                     final pickedFile =
-                        await _picker.getImage(source: ImageSource.gallery);
-                    final File file = File(pickedFile!.path);
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    final File file =
+                        File(pickedFile!.path + regnumberController.text);
                     setState(() {
                       selectedImage = file;
                     });

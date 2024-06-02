@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -42,6 +43,7 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
       final response = await membersRepository.getMembers();
       emit(GetMembersLoaded(membersList: response));
     } catch (e) {
+      log(e.toString());
       emit(MembersFailed(error: e.toString()));
     }
   }
@@ -76,16 +78,28 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     emit(MembersInitial());
     try {
       emit(MembersLoadding());
-      Uint8List? file = event.image.readAsBytesSync();
-
-      UploadTask task =
-          FirebaseStorage.instance.ref().child("files/").putFile(event.image);
+      // Uint8List? file = event.image.readAsBytesSync();
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child("users/${event.uid}.jpg")
+          .putFile(event.image);
       emit(UploadImageLoading(taskSnapshot: task.snapshotEvents));
       String imageUrl = '';
-      await task.snapshot.ref
-          .getDownloadURL()
-          .then((value) => imageUrl = value)
-          .whenComplete(() => emit(UploadImageSucess(profilePicUrl: imageUrl)));
+      await task.whenComplete(
+        () => task.snapshot.ref
+            .getDownloadURL()
+            .then((value) => imageUrl = value)
+            .whenComplete(
+              () => emit(
+                UploadImageSucess(profilePicUrl: imageUrl),
+              ),
+            ),
+      );
+
+      // snapshot.ref
+      //     .getDownloadURL()
+      //     .then((value) => imageUrl = value)
+      // .whenComplete(() => emit(UploadImageSucess(profilePicUrl: imageUrl)));
     } catch (e) {
       emit(MembersFailed(error: e.toString()));
     }

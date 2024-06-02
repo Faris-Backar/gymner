@@ -28,7 +28,7 @@ class Gymner extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'Montserrat',
+            fontFamily: 'Inter',
             scaffoldBackgroundColor: StyleResources.accentColor,
             appBarTheme: const AppBarTheme(
               backgroundColor: StyleResources.accentColor,
@@ -38,7 +38,7 @@ class Gymner extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
-                fontFamily: 'Montserrat',
+                fontFamily: 'Inter',
               ),
             ),
           ),
