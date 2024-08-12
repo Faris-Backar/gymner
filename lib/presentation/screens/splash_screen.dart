@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(
         const Duration(seconds: 3),
         () => Navigator.of(context)
-            .pushReplacementNamed(PageResources.homeScreen),
+            .pushReplacementNamed(PageResources.mainScreen),
       );
     } else {
       Future.delayed(

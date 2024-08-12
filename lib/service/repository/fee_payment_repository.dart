@@ -3,7 +3,6 @@ import 'package:gym/core/resources/firebase_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/service/model/fees_payment_model.dart';
 import 'package:gym/service/model/members_model.dart';
-import 'package:gym/service/model/transaction_model.dart';
 import 'package:uuid/uuid.dart';
 
 class FeesPaymentRepsoitory {

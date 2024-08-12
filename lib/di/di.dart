@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart' as di;
 import 'package:gym/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:gym/presentation/bloc/fee_pending/fee_pending_bloc.dart';
@@ -34,4 +36,8 @@ void setup() {
       FeePaymentBloc(feesPaymentRepsoitory: getIt<FeesPaymentRepsoitory>()));
   getIt.registerSingleton<FeePendingBloc>(
       FeePendingBloc(feesPaymentRepsoitory: getIt<FeesPaymentRepsoitory>()));
+  getIt.registerLazySingleton<BottomNavigationBarBloc>(
+      () => BottomNavigationBarBloc());
+  getIt.registerLazySingleton<ExpiryReportBloc>(
+      () => ExpiryReportBloc(membersRepository: getIt<MembersRepository>()));
 }

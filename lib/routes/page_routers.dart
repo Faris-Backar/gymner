@@ -6,6 +6,7 @@ import 'package:gym/presentation/screens/fee_payment_screen.dart';
 import 'package:gym/presentation/screens/home_screen.dart';
 import 'package:gym/presentation/screens/landing_screen.dart';
 import 'package:gym/presentation/screens/login_screen.dart';
+import 'package:gym/presentation/screens/main_screen.dart';
 import 'package:gym/presentation/screens/member_screen.dart';
 import 'package:gym/presentation/screens/package_screen.dart';
 import 'package:gym/presentation/screens/pending_fee_screen.dart';
@@ -65,9 +66,12 @@ class PageRouters {
         builder: (context) => const MemberScreen(),
       );
     } else if (settings.name == PageResources.viewMembersScreen) {
-      final args = settings.arguments as MembersModel;
       return CupertinoPageRoute(
-        builder: (context) => ViewMembersScreen(membersModel: args),
+        builder: (context) => ViewMembersScreen(),
+      );
+    } else if (settings.name == PageResources.mainScreen) {
+      return CupertinoPageRoute(
+        builder: (context) => const MainScreen(),
       );
     } else {
       return CupertinoPageRoute(

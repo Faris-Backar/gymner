@@ -16,4 +16,10 @@ class AssetResources {
 
   // icons
   static const rupee = 'assets/icons/rupee.png';
+  static const homeOutline = "${iconsPath}home_outlined.png";
+  static const homeFilled = "${iconsPath}home.png";
+  static const peopleOutline = "${iconsPath}group_outli2ne.png";
+  static const peopleFilled = "${iconsPath}multiple-users-filled.png";
+  static const calenderOutline = "${iconsPath}calendar_outline.svg";
+  static const calenderFilled = "${iconsPath}calender_filled.svg";
 }

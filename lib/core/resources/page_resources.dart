@@ -13,4 +13,5 @@ class PageResources {
   static const pendingFeeScreen = '/pending-fees';
   static const smsScreen = '/sms';
   static const viewMembersScreen = '/view-member';
+  static const mainScreen = "/main-screen";
 }

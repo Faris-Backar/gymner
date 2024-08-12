@@ -4,11 +4,11 @@ import '../../core/resources/style_resources.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.label,
     this.ontap,
     this.child,
-  }) : super(key: key);
+  });
   final String label;
   final Function()? ontap;
   final Widget? child;
@@ -16,23 +16,23 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 5.0,
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: ontap,
         child: Container(
-          height: 7.h,
+          height: 6.h,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: StyleResources.secondaryColor),
+              borderRadius: BorderRadius.circular(10),
+              color: StyleResources.black),
           alignment: Alignment.center,
           child: child ??
               Text(
                 label,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16.sp,
+                  color: StyleResources.accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.sp,
                 ),
               ),
         ),

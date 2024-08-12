@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/functions.dart';
-import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
@@ -60,25 +59,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
     return Scaffold(
       backgroundColor: StyleResources.accentColor,
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: StyleResources.accentColor,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.black,
-          ),
-        ),
         title: const Text(
           'Add Members',
         ),
-        actions: [
-          TextButton(
-            onPressed: () =>
-                Navigator.of(context).pushNamed(PageResources.memberScreen),
-            child: const Text('View Members'),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

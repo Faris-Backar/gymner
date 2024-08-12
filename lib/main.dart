@@ -12,7 +12,6 @@ void main(List<String> args) async {
   );
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.white,
   ));
   di.setup();
   runApp(const Gymner());

@@ -4,6 +4,8 @@ import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
@@ -24,26 +26,28 @@ class Gymner extends StatelessWidget {
           BlocProvider.value(value: getIt<MembersBloc>()),
           BlocProvider.value(value: getIt<FeePaymentBloc>()),
           BlocProvider.value(value: getIt<FeePendingBloc>()),
+          BlocProvider.value(value: getIt<BottomNavigationBarBloc>()),
+          BlocProvider.value(value: getIt<ExpiryReportBloc>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'Inter',
-            scaffoldBackgroundColor: StyleResources.accentColor,
+            fontFamily: 'Montserrat',
+            scaffoldBackgroundColor: StyleResources.scaffoldBackgroundColor,
             appBarTheme: const AppBarTheme(
-              backgroundColor: StyleResources.accentColor,
-              iconTheme: IconThemeData(color: Colors.black),
+              backgroundColor: StyleResources.black,
+              iconTheme: IconThemeData(color: Colors.white),
               elevation: 0.0,
               titleTextStyle: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
-                fontFamily: 'Inter',
+                fontFamily: 'Montserrat',
               ),
             ),
           ),
           onGenerateRoute: PageRouters.generateRoute,
-          initialRoute: PageResources.landingScreen,
+          initialRoute: PageResources.splashScreen,
         ),
       ),
     );

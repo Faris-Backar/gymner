@@ -9,7 +9,7 @@ import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/fee_pending/fee_pending_bloc.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
-import 'package:gym/presentation/screens/member_screen.dart';
+import 'package:gym/presentation/widgets/member_details_card.dart';
 import 'package:gym/service/model/members_model.dart';
 import 'package:gym/service/model/sms_model.dart';
 import 'package:lottie/lottie.dart';
@@ -84,13 +84,9 @@ class _PendingFeeScreenState extends State<PendingFeeScreen> {
                 ),
                 itemCount: feePendingMembersData.length,
                 itemBuilder: (context, index) {
-                  return MembersCard(
-                      name: feePendingMembersData[index].name,
-                      mobileNumber:
-                          feePendingMembersData[index].mobileNumber.toString(),
-                      registrationNumber: feePendingMembersData[index]
-                          .registerNumber
-                          .toString());
+                  return MemberDetailsCard(
+                    membersModel: feePendingMembersData[index],
+                  );
                 },
               );
             }

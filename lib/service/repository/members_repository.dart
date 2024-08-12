@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:uuid/uuid.dart';
 
 import 'package:gym/core/resources/firebase_resources.dart';
-import 'package:gym/di/di.dart';
 import 'package:gym/service/model/members_model.dart';
 
 class MembersRepository {
@@ -15,7 +13,6 @@ class MembersRepository {
   });
 
   createMember({required MembersModel membersModel}) {
-    final uid = getIt<Uuid>();
     return db
         .collection(FirebaseResources.members)
         .doc(membersModel.uid)
@@ -42,5 +39,77 @@ class MembersRepository {
         .get()
         .then((snapshot) =>
             snapshot.docs.map((e) => MembersModel.fromMap(e.data())).toList());
+  }
+
+  Future<List<MembersModel>> getMembersExpiringWithin3Days() async {
+    // Calculate the date range
+    DateTime now = DateTime.now();
+    DateTime threeDaysLater = now.add(const Duration(days: 3));
+
+    // Convert to Timestamp for Firestore query
+    Timestamp nowTimestamp = Timestamp.fromDate(now);
+    Timestamp threeDaysLaterTimestamp = Timestamp.fromDate(threeDaysLater);
+
+    // Query Firestore
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('members')
+        .where('packageEndDate', isGreaterThanOrEqualTo: nowTimestamp)
+        .where('packageEndDate', isLessThanOrEqualTo: threeDaysLaterTimestamp)
+        .get();
+
+    // Convert query results to MembersModel objects
+    List<MembersModel> expiringMembers = querySnapshot.docs
+        .map((doc) => MembersModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+
+    return expiringMembers;
+  }
+
+  Future<List<MembersModel>> getMembersExpiringWithin7Days() async {
+    // Calculate the date range
+    DateTime now = DateTime.now().add(const Duration(days: 3));
+    DateTime threeDaysLater = now.add(const Duration(days: 7));
+
+    // Convert to Timestamp for Firestore query
+    Timestamp nowTimestamp = Timestamp.fromDate(now);
+    Timestamp threeDaysLaterTimestamp = Timestamp.fromDate(threeDaysLater);
+
+    // Query Firestore
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('members')
+        .where('packageEndDate', isGreaterThanOrEqualTo: nowTimestamp)
+        .where('packageEndDate', isLessThanOrEqualTo: threeDaysLaterTimestamp)
+        .get();
+
+    // Convert query results to MembersModel objects
+    List<MembersModel> expiringMembers = querySnapshot.docs
+        .map((doc) => MembersModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+
+    return expiringMembers;
+  }
+
+  Future<List<MembersModel>> getMembersExpiringWithin30Days() async {
+    // Calculate the date range
+    DateTime now = DateTime.now().add(const Duration(days: 7));
+    DateTime threeDaysLater = now.add(const Duration(days: 30));
+
+    // Convert to Timestamp for Firestore query
+    Timestamp nowTimestamp = Timestamp.fromDate(now);
+    Timestamp threeDaysLaterTimestamp = Timestamp.fromDate(threeDaysLater);
+
+    // Query Firestore
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('members')
+        .where('packageEndDate', isGreaterThanOrEqualTo: nowTimestamp)
+        .where('packageEndDate', isLessThanOrEqualTo: threeDaysLaterTimestamp)
+        .get();
+
+    // Convert query results to MembersModel objects
+    List<MembersModel> expiringMembers = querySnapshot.docs
+        .map((doc) => MembersModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+
+    return expiringMembers;
   }
 }
