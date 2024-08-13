@@ -13,6 +13,7 @@ part 'members_state.dart';
 
 class MembersBloc extends Bloc<MembersEvent, MembersState> {
   final MembersRepository membersRepository;
+  late List<MembersModel> membersList;
   MembersBloc({
     required this.membersRepository,
   }) : super(MembersInitial()) {
@@ -39,8 +40,8 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     emit(MembersInitial());
     emit(MembersLoadding());
     try {
-      final response = await membersRepository.getMembers();
-      emit(GetMembersLoaded(membersList: response));
+      membersList = await membersRepository.getMembers();
+      emit(GetMembersLoaded(membersList: membersList));
     } catch (e) {
       log(e.toString());
       emit(MembersFailed(error: e.toString()));
@@ -51,8 +52,8 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     emit(MembersInitial());
     emit(MembersLoadding());
     try {
-      final response =
-          await membersRepository.searchMembers(searchQuery: event.query);
+      final response = membersRepository.searchMembers(
+          searchQuery: event.query, membersList: membersList);
       emit(GetMembersLoaded(membersList: response));
     } catch (e) {
       emit(MembersFailed(error: e.toString()));

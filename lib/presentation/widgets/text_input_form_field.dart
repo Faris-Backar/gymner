@@ -4,7 +4,7 @@ import 'package:gym/core/resources/style_resources.dart';
 
 class TextInputFormField extends StatelessWidget {
   const TextInputFormField({
-    Key? key,
+    super.key,
     this.hint,
     required this.controller,
     this.prefixIcon,
@@ -18,7 +18,9 @@ class TextInputFormField extends StatelessWidget {
     this.validator,
     this.contentPadding,
     this.hintDecoration,
-  }) : super(key: key);
+    this.style,
+    this.cursorColor,
+  });
   final String? hint;
   final TextEditingController controller;
   final Widget? prefixIcon;
@@ -32,6 +34,8 @@ class TextInputFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final EdgeInsetsGeometry? contentPadding;
   final TextStyle? hintDecoration;
+  final TextStyle? style;
+  final Color? cursorColor;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +69,8 @@ class TextInputFormField extends StatelessWidget {
         hintText: hint,
         hintStyle: hintDecoration,
       ),
+      style: style,
+      cursorColor: cursorColor,
     );
   }
 }

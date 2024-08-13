@@ -52,6 +52,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
     _membersBloc = getIt<MembersBloc>();
     _packageCubit = getIt<PackageCubit>();
     _packageCubit.getFeePackages();
+    selectedPackageValue = "Select Package";
   }
 
   @override
@@ -242,47 +243,62 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                   builder: (context, state) {
                     if (state is PackageLoaded) {
                       final packageData = state.packageList;
-                      List<String> packageDropdownItems = [];
-                      for (var i = 0; i < packageData.length; i++) {
-                        packageDropdownItems.add(packageData[i].name);
-                      }
+                      List<DropdownMenuItem<String>> packageDropdownItems =
+                          packageData
+                              .map((package) => DropdownMenuItem<String>(
+                                    value: package.name,
+                                    child: Text(package.name),
+                                  ))
+                              .toList();
+
+                      // Adding a default "Select Package" item
+                      packageDropdownItems.insert(
+                        0,
+                        const DropdownMenuItem<String>(
+                          value: "Select Package",
+                          child: Text("Select Package"),
+                        ),
+                      );
+
                       return SizedBox(
                         height: 6.h,
-                        child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: StyleResources.primaryColor),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: StyleResources.primaryColor,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: StyleResources.primaryColor),
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please select a category';
-                              }
-                              return null;
-                            },
-                            value: selectedPackageValue,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedPackageValue = newValue!;
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: StyleResources.primaryColor),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value == "Select Package") {
+                              return 'Please select a package';
+                            }
+                            return null;
+                          },
+                          value: selectedPackageValue,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedPackageValue = newValue;
+                              if (newValue != "Select Package") {
                                 selectedpackages = packageData.singleWhere(
-                                    (element) => element.name == newValue);
-                              });
-                            },
-                            items: packageDropdownItems.map((String category) {
-                              return DropdownMenuItem(
-                                  value: category, child: Text(category));
-                            }).toList()),
+                                    (package) => package.name == newValue);
+                              } else {
+                                selectedpackages = null;
+                              }
+                            });
+                          },
+                          items: packageDropdownItems,
+                        ),
                       );
                     }
                     return const SizedBox.shrink();
@@ -370,12 +386,24 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   bottomModalSheetWidget(BuildContext context) async {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       builder: (ctx) => Container(
         padding: const EdgeInsets.all(16.0),
-        height: 20.h,
+        height: 22.h,
         width: double.infinity,
         child: Column(
           children: [
+            Container(
+              height: 5,
+              width: 50.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: StyleResources.greyBlack.withOpacity(.5),
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
             InkWell(
               onTap: () async {
                 var status = await Permission.camera.status;
@@ -421,8 +449,8 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                 height: 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: StyleResources.secondaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  color: StyleResources.black,
                 ),
                 alignment: Alignment.center,
                 child: const Text(
@@ -484,8 +512,8 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                 height: 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: StyleResources.secondaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  color: StyleResources.black,
                 ),
                 alignment: Alignment.center,
                 child: const Text(

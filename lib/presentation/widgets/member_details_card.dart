@@ -78,7 +78,7 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
                       widget.membersModel.propicUrl!),
                   fit: BoxFit.contain,
                   alignment: Alignment.topCenter,
-                )
+                  scale: .5)
               : null,
         ),
       ),

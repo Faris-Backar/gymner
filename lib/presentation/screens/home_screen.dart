@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/registration_report/registration_report_bloc.dart';
 import 'package:gym/service/model/expiry_report_model.dart';
@@ -14,6 +15,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getIt<ExpiryReportBloc>().add(const ExpiryReportEvent.getExpiryReport());
+    getIt<RegistrationReportBloc>()
+        .add(const RegistrationReportEvent.getRegistrationReport());
+
     return Scaffold(
       appBar: AppBar(
         leading:
@@ -115,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                                 registrationReport: registrationReport,
                                 index: index)
                             .toString(),
-                        DashboardConstants.upcomingExpiryReport[index],
+                        DashboardConstants.registartionReport[index],
                         isLoading: false,
                       ),
                     ),

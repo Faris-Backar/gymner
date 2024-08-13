@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gym/core/constants/dashboard_constants.dart';
 import 'package:gym/core/resources/style_resources.dart';
+import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/widgets/member_details_card.dart';
 import 'package:gym/presentation/widgets/text_input_form_field.dart';
 import 'package:sizer/sizer.dart';
@@ -25,13 +27,11 @@ class _MemberScreenState extends State<MemberScreen> {
   String? filterByPackageSelectedValue;
   String? filterByExpiredSelectedValue;
 
-  final List<String> items = ['Option 1', 'Option 2', 'Option 3'];
-
   @override
   void initState() {
     super.initState();
-    filterByExpiredSelectedValue = items[0];
-    filterByExpiredSelectedValue = items[1];
+    filterByExpiredSelectedValue =
+        DashboardConstants.filterByActiveStatusDropdownOptions[0];
     membersBloc.add(GetMembersEvent());
   }
 
@@ -99,21 +99,26 @@ class _MemberScreenState extends State<MemberScreen> {
               child: SizedBox(
                 height: 40,
                 child: TextInputFormField(
-                  controller: _searchController,
-                  borderRadius: 30,
-                  hint: "Search Name / Mobile Number",
-                  fillColor: StyleResources.accentColor.withOpacity(0.05),
-                  prefixIcon: const Icon(FontAwesomeIcons.magnifyingGlass),
-                  hintDecoration: TextStyle(
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w500,
-                    color: StyleResources.accentColor.withOpacity(0.4),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
-                  ),
-                ),
+                    controller: _searchController,
+                    borderRadius: 30,
+                    hint: "Search Name / Mobile Number",
+                    fillColor: StyleResources.accentColor.withOpacity(0.05),
+                    prefixIcon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                    hintDecoration: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w500,
+                      color: StyleResources.accentColor.withOpacity(0.4),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 16.0,
+                    ),
+                    style: TextStyle(
+                        color: StyleResources.scaffoldBackgroundColor),
+                    cursorColor: StyleResources.primaryColor,
+                    onChanged: (searchQuery) {
+                      membersBloc.add(SearchMembersEvent(query: searchQuery));
+                    }),
               ),
             ),
             SizedBox(height: 1.h),
@@ -130,18 +135,73 @@ class _MemberScreenState extends State<MemberScreen> {
       child: Row(
         children: [
           Expanded(
-              child: _buildDropdown(filterByPackageSelectedValue, (value) {
+              child: _buildDropdown(filterByExpiredSelectedValue, (value) {
             setState(() {
               filterByPackageSelectedValue = value;
             });
           })),
           SizedBox(width: 3.w),
           Expanded(
-              child: _buildDropdown(filterByExpiredSelectedValue, (value) {
-            setState(() {
-              filterByExpiredSelectedValue = value;
-            });
-          })),
+            child: BlocBuilder<PackageCubit, PackageState>(
+              builder: (context, state) {
+                if (state is PackageLoaded) {
+                  final packageData = state.packageList;
+                  List<DropdownMenuItem<String>> packageDropdownItems =
+                      packageData
+                          .map((package) => DropdownMenuItem<String>(
+                                value: package.name,
+                                child: Text(
+                                  package.name,
+                                  style: TextStyle(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ))
+                          .toList();
+                  packageDropdownItems.insert(
+                    0,
+                    DropdownMenuItem<String>(
+                      value: "Select Package",
+                      child: Text(
+                        "Select Package",
+                        style: TextStyle(
+                            fontSize: 10.sp, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  );
+                  return Container(
+                    height: 5.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: StyleResources.accentColor,
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField<String>(
+                        isExpanded: true,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        value: filterByPackageSelectedValue,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            if (newValue != "Select Package") {
+                              filterByPackageSelectedValue = packageData
+                                  .singleWhere(
+                                      (package) => package.name == newValue)
+                                  .name;
+                            } else {
+                              filterByPackageSelectedValue =
+                                  packageData.first.name;
+                            }
+                          });
+                        },
+                        items: packageDropdownItems,
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -161,7 +221,8 @@ class _MemberScreenState extends State<MemberScreen> {
           isExpanded: true,
           style: const TextStyle(color: Colors.black),
           onChanged: onChanged,
-          items: items.map<DropdownMenuItem<String>>((String value) {
+          items: DashboardConstants.filterByActiveStatusDropdownOptions
+              .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Padding(

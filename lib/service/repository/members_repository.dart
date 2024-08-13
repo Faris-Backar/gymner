@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:gym/core/constants/dashboard_constants.dart';
 
 import 'package:gym/core/resources/firebase_resources.dart';
 import 'package:gym/service/model/members_model.dart';
@@ -32,13 +33,32 @@ class MembersRepository {
         .then((snapshot) => MembersModel.fromMap(snapshot.data()!));
   }
 
-  Future<List<MembersModel>> searchMembers({required String searchQuery}) {
-    return db
-        .collection(FirebaseResources.members)
-        .where("name", isEqualTo: searchQuery)
-        .get()
-        .then((snapshot) =>
-            snapshot.docs.map((e) => MembersModel.fromMap(e.data())).toList());
+  List<MembersModel> searchMembers({
+    required String searchQuery,
+    required List<MembersModel> membersList,
+    String? filterByPackageQuery,
+    String? filterByStatusQuery,
+  }) {
+    return membersList.where((member) {
+      final matchesName =
+          member.name.toLowerCase().contains(searchQuery.toLowerCase());
+
+      final matchesStatus = filterByStatusQuery == null ||
+          filterByStatusQuery ==
+              DashboardConstants.filterByActiveStatusDropdownOptions.first ||
+          (filterByStatusQuery ==
+                  DashboardConstants.filterByActiveStatusDropdownOptions[1] &&
+              member.isActive == true) ||
+          (filterByStatusQuery ==
+                  DashboardConstants.filterByActiveStatusDropdownOptions[2] &&
+              member.isActive == false);
+
+      final matchesPackage = filterByPackageQuery == null ||
+          filterByPackageQuery == "All" ||
+          member.packageModel.name == filterByPackageQuery;
+
+      return matchesName && matchesStatus && matchesPackage;
+    }).toList();
   }
 
   Future<List<MembersModel>> getMembersExpiringWithin3Days() async {

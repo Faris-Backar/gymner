@@ -14,4 +14,12 @@ class DashboardConstants {
     "Expired Members",
     "Blocked Members"
   ];
+
+  static const filterByActiveStatusDropdownOptions = [
+    "All",
+    "Active",
+    "InActive"
+  ];
+
+  static const filterByPackageDropdownOptions = ["All", "Active", "InActive"];
 }
