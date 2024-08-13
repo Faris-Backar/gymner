@@ -112,4 +112,13 @@ class MembersRepository {
 
     return expiringMembers;
   }
+
+  List<MembersModel> getExpiredMembers({required List<MembersModel> members}) {
+    return members.where((member) {
+      if (member.lastFeesPaid == null) {
+        return true;
+      }
+      return member.lastFeesPaid!.isBefore(DateTime.now());
+    }).toList();
+  }
 }

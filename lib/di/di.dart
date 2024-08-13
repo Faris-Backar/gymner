@@ -9,6 +9,7 @@ import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:gym/presentation/bloc/fee_pending/fee_pending_bloc.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
+import 'package:gym/presentation/bloc/registration_report/registration_report_bloc.dart';
 import 'package:gym/service/repository/fee_payment_repository.dart';
 import 'package:gym/service/repository/members_repository.dart';
 import 'package:gym/service/repository/package_repository.dart';
@@ -40,4 +41,6 @@ void setup() {
       () => BottomNavigationBarBloc());
   getIt.registerLazySingleton<ExpiryReportBloc>(
       () => ExpiryReportBloc(membersRepository: getIt<MembersRepository>()));
+  getIt.registerLazySingleton<RegistrationReportBloc>(() =>
+      RegistrationReportBloc(membersRepository: getIt<MembersRepository>()));
 }

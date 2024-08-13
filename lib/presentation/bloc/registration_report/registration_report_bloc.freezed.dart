@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'expiry_report_bloc.dart';
+part of 'registration_report_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,52 +15,53 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ExpiryReportEvent {
+mixin _$RegistrationReportEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getExpiryReport,
+    required TResult Function() getRegistrationReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getExpiryReport,
+    TResult? Function()? getRegistrationReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getExpiryReport,
+    TResult Function()? getRegistrationReport,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetExpiryReport value) getExpiryReport,
+    required TResult Function(_Started value) getRegistrationReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetExpiryReport value)? getExpiryReport,
+    TResult? Function(_Started value)? getRegistrationReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetExpiryReport value)? getExpiryReport,
+    TResult Function(_Started value)? getRegistrationReport,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ExpiryReportEventCopyWith<$Res> {
-  factory $ExpiryReportEventCopyWith(
-          ExpiryReportEvent value, $Res Function(ExpiryReportEvent) then) =
-      _$ExpiryReportEventCopyWithImpl<$Res, ExpiryReportEvent>;
+abstract class $RegistrationReportEventCopyWith<$Res> {
+  factory $RegistrationReportEventCopyWith(RegistrationReportEvent value,
+          $Res Function(RegistrationReportEvent) then) =
+      _$RegistrationReportEventCopyWithImpl<$Res, RegistrationReportEvent>;
 }
 
 /// @nodoc
-class _$ExpiryReportEventCopyWithImpl<$Res, $Val extends ExpiryReportEvent>
-    implements $ExpiryReportEventCopyWith<$Res> {
-  _$ExpiryReportEventCopyWithImpl(this._value, this._then);
+class _$RegistrationReportEventCopyWithImpl<$Res,
+        $Val extends RegistrationReportEvent>
+    implements $RegistrationReportEventCopyWith<$Res> {
+  _$RegistrationReportEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -69,35 +70,35 @@ class _$ExpiryReportEventCopyWithImpl<$Res, $Val extends ExpiryReportEvent>
 }
 
 /// @nodoc
-abstract class _$$GetExpiryReportImplCopyWith<$Res> {
-  factory _$$GetExpiryReportImplCopyWith(_$GetExpiryReportImpl value,
-          $Res Function(_$GetExpiryReportImpl) then) =
-      __$$GetExpiryReportImplCopyWithImpl<$Res>;
+abstract class _$$StartedImplCopyWith<$Res> {
+  factory _$$StartedImplCopyWith(
+          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
+      __$$StartedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GetExpiryReportImplCopyWithImpl<$Res>
-    extends _$ExpiryReportEventCopyWithImpl<$Res, _$GetExpiryReportImpl>
-    implements _$$GetExpiryReportImplCopyWith<$Res> {
-  __$$GetExpiryReportImplCopyWithImpl(
-      _$GetExpiryReportImpl _value, $Res Function(_$GetExpiryReportImpl) _then)
+class __$$StartedImplCopyWithImpl<$Res>
+    extends _$RegistrationReportEventCopyWithImpl<$Res, _$StartedImpl>
+    implements _$$StartedImplCopyWith<$Res> {
+  __$$StartedImplCopyWithImpl(
+      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$GetExpiryReportImpl implements _GetExpiryReport {
-  const _$GetExpiryReportImpl();
+class _$StartedImpl implements _Started {
+  const _$StartedImpl();
 
   @override
   String toString() {
-    return 'ExpiryReportEvent.getExpiryReport()';
+    return 'RegistrationReportEvent.getRegistrationReport()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetExpiryReportImpl);
+        (other.runtimeType == runtimeType && other is _$StartedImpl);
   }
 
   @override
@@ -106,27 +107,27 @@ class _$GetExpiryReportImpl implements _GetExpiryReport {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getExpiryReport,
+    required TResult Function() getRegistrationReport,
   }) {
-    return getExpiryReport();
+    return getRegistrationReport();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getExpiryReport,
+    TResult? Function()? getRegistrationReport,
   }) {
-    return getExpiryReport?.call();
+    return getRegistrationReport?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getExpiryReport,
+    TResult Function()? getRegistrationReport,
     required TResult orElse(),
   }) {
-    if (getExpiryReport != null) {
-      return getExpiryReport();
+    if (getRegistrationReport != null) {
+      return getRegistrationReport();
     }
     return orElse();
   }
@@ -134,43 +135,44 @@ class _$GetExpiryReportImpl implements _GetExpiryReport {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetExpiryReport value) getExpiryReport,
+    required TResult Function(_Started value) getRegistrationReport,
   }) {
-    return getExpiryReport(this);
+    return getRegistrationReport(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetExpiryReport value)? getExpiryReport,
+    TResult? Function(_Started value)? getRegistrationReport,
   }) {
-    return getExpiryReport?.call(this);
+    return getRegistrationReport?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetExpiryReport value)? getExpiryReport,
+    TResult Function(_Started value)? getRegistrationReport,
     required TResult orElse(),
   }) {
-    if (getExpiryReport != null) {
-      return getExpiryReport(this);
+    if (getRegistrationReport != null) {
+      return getRegistrationReport(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetExpiryReport implements ExpiryReportEvent {
-  const factory _GetExpiryReport() = _$GetExpiryReportImpl;
+abstract class _Started implements RegistrationReportEvent {
+  const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-mixin _$ExpiryReportState {
+mixin _$RegistrationReportState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ExpiryReportModel expiryReport) loaded,
+    required TResult Function(RegistrationReportModel registrationReport)
+        loaded,
     required TResult Function(String error) failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +180,7 @@ mixin _$ExpiryReportState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ExpiryReportModel expiryReport)? loaded,
+    TResult? Function(RegistrationReportModel registrationReport)? loaded,
     TResult? Function(String error)? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +188,7 @@ mixin _$ExpiryReportState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ExpiryReportModel expiryReport)? loaded,
+    TResult Function(RegistrationReportModel registrationReport)? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) =>
@@ -219,16 +221,17 @@ mixin _$ExpiryReportState {
 }
 
 /// @nodoc
-abstract class $ExpiryReportStateCopyWith<$Res> {
-  factory $ExpiryReportStateCopyWith(
-          ExpiryReportState value, $Res Function(ExpiryReportState) then) =
-      _$ExpiryReportStateCopyWithImpl<$Res, ExpiryReportState>;
+abstract class $RegistrationReportStateCopyWith<$Res> {
+  factory $RegistrationReportStateCopyWith(RegistrationReportState value,
+          $Res Function(RegistrationReportState) then) =
+      _$RegistrationReportStateCopyWithImpl<$Res, RegistrationReportState>;
 }
 
 /// @nodoc
-class _$ExpiryReportStateCopyWithImpl<$Res, $Val extends ExpiryReportState>
-    implements $ExpiryReportStateCopyWith<$Res> {
-  _$ExpiryReportStateCopyWithImpl(this._value, this._then);
+class _$RegistrationReportStateCopyWithImpl<$Res,
+        $Val extends RegistrationReportState>
+    implements $RegistrationReportStateCopyWith<$Res> {
+  _$RegistrationReportStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -245,7 +248,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$ExpiryReportStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$RegistrationReportStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -259,7 +262,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ExpiryReportState.initial()';
+    return 'RegistrationReportState.initial()';
   }
 
   @override
@@ -276,7 +279,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ExpiryReportModel expiryReport) loaded,
+    required TResult Function(RegistrationReportModel registrationReport)
+        loaded,
     required TResult Function(String error) failed,
   }) {
     return initial();
@@ -287,7 +291,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ExpiryReportModel expiryReport)? loaded,
+    TResult? Function(RegistrationReportModel registrationReport)? loaded,
     TResult? Function(String error)? failed,
   }) {
     return initial?.call();
@@ -298,7 +302,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ExpiryReportModel expiryReport)? loaded,
+    TResult Function(RegistrationReportModel registrationReport)? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -346,7 +350,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements ExpiryReportState {
+abstract class _Initial implements RegistrationReportState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -359,7 +363,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ExpiryReportStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$RegistrationReportStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -373,7 +377,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'ExpiryReportState.loading()';
+    return 'RegistrationReportState.loading()';
   }
 
   @override
@@ -390,7 +394,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ExpiryReportModel expiryReport) loaded,
+    required TResult Function(RegistrationReportModel registrationReport)
+        loaded,
     required TResult Function(String error) failed,
   }) {
     return loading();
@@ -401,7 +406,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ExpiryReportModel expiryReport)? loaded,
+    TResult? Function(RegistrationReportModel registrationReport)? loaded,
     TResult? Function(String error)? failed,
   }) {
     return loading?.call();
@@ -412,7 +417,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ExpiryReportModel expiryReport)? loaded,
+    TResult Function(RegistrationReportModel registrationReport)? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -460,7 +465,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements ExpiryReportState {
+abstract class _Loading implements RegistrationReportState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -470,12 +475,12 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ExpiryReportModel expiryReport});
+  $Res call({RegistrationReportModel registrationReport});
 }
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$ExpiryReportStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$RegistrationReportStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
@@ -484,13 +489,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? expiryReport = null,
+    Object? registrationReport = freezed,
   }) {
     return _then(_$LoadedImpl(
-      expiryReport: null == expiryReport
-          ? _value.expiryReport
-          : expiryReport // ignore: cast_nullable_to_non_nullable
-              as ExpiryReportModel,
+      registrationReport: freezed == registrationReport
+          ? _value.registrationReport
+          : registrationReport // ignore: cast_nullable_to_non_nullable
+              as RegistrationReportModel,
     ));
   }
 }
@@ -498,14 +503,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required this.expiryReport});
+  const _$LoadedImpl({required this.registrationReport});
 
   @override
-  final ExpiryReportModel expiryReport;
+  final RegistrationReportModel registrationReport;
 
   @override
   String toString() {
-    return 'ExpiryReportState.loaded(expiryReport: $expiryReport)';
+    return 'RegistrationReportState.loaded(registrationReport: $registrationReport)';
   }
 
   @override
@@ -513,12 +518,13 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.expiryReport, expiryReport) ||
-                other.expiryReport == expiryReport));
+            const DeepCollectionEquality()
+                .equals(other.registrationReport, registrationReport));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, expiryReport);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(registrationReport));
 
   @JsonKey(ignore: true)
   @override
@@ -531,10 +537,11 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ExpiryReportModel expiryReport) loaded,
+    required TResult Function(RegistrationReportModel registrationReport)
+        loaded,
     required TResult Function(String error) failed,
   }) {
-    return loaded(expiryReport);
+    return loaded(registrationReport);
   }
 
   @override
@@ -542,10 +549,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ExpiryReportModel expiryReport)? loaded,
+    TResult? Function(RegistrationReportModel registrationReport)? loaded,
     TResult? Function(String error)? failed,
   }) {
-    return loaded?.call(expiryReport);
+    return loaded?.call(registrationReport);
   }
 
   @override
@@ -553,12 +560,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ExpiryReportModel expiryReport)? loaded,
+    TResult Function(RegistrationReportModel registrationReport)? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(expiryReport);
+      return loaded(registrationReport);
     }
     return orElse();
   }
@@ -601,11 +608,12 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements ExpiryReportState {
-  const factory _Loaded({required final ExpiryReportModel expiryReport}) =
+abstract class _Loaded implements RegistrationReportState {
+  const factory _Loaded(
+          {required final RegistrationReportModel registrationReport}) =
       _$LoadedImpl;
 
-  ExpiryReportModel get expiryReport;
+  RegistrationReportModel get registrationReport;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -622,7 +630,7 @@ abstract class _$$FailedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$FailedImplCopyWithImpl<$Res>
-    extends _$ExpiryReportStateCopyWithImpl<$Res, _$FailedImpl>
+    extends _$RegistrationReportStateCopyWithImpl<$Res, _$FailedImpl>
     implements _$$FailedImplCopyWith<$Res> {
   __$$FailedImplCopyWithImpl(
       _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
@@ -652,7 +660,7 @@ class _$FailedImpl implements _Failed {
 
   @override
   String toString() {
-    return 'ExpiryReportState.failed(error: $error)';
+    return 'RegistrationReportState.failed(error: $error)';
   }
 
   @override
@@ -677,7 +685,8 @@ class _$FailedImpl implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ExpiryReportModel expiryReport) loaded,
+    required TResult Function(RegistrationReportModel registrationReport)
+        loaded,
     required TResult Function(String error) failed,
   }) {
     return failed(error);
@@ -688,7 +697,7 @@ class _$FailedImpl implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ExpiryReportModel expiryReport)? loaded,
+    TResult? Function(RegistrationReportModel registrationReport)? loaded,
     TResult? Function(String error)? failed,
   }) {
     return failed?.call(error);
@@ -699,7 +708,7 @@ class _$FailedImpl implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ExpiryReportModel expiryReport)? loaded,
+    TResult Function(RegistrationReportModel registrationReport)? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -747,7 +756,7 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements ExpiryReportState {
+abstract class _Failed implements RegistrationReportState {
   const factory _Failed({required final String error}) = _$FailedImpl;
 
   String get error;

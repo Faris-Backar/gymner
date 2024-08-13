@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -26,14 +24,12 @@ class ExpiryReportBloc extends Bloc<ExpiryReportEvent, ExpiryReportState> {
       final expiryDataWithIn7days =
           await membersRepository.getMembersExpiringWithin7Days();
       final expiryDataWithIn30days =
-          await membersRepository.getMembersExpiringWithin7Days();
+          await membersRepository.getMembersExpiringWithin30Days();
       final ExpiryReportModel expiryReportModel = ExpiryReportModel(
           expiryWithinOneToThreeDays: expiryDataWithIn3days.length,
           expiryWithinFourToSevenDays: expiryDataWithIn7days.length,
           expiryWithinSeventoThirtyDays: expiryDataWithIn30days.length,
           expiredActiveMembers: 0);
-
-      log("Expiry Reort => ${expiryReportModel.toString()}");
       emit(const ExpiryReportState.loading());
       emit(ExpiryReportState.loaded(expiryReport: expiryReportModel));
     } catch (e) {

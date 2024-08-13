@@ -14,7 +14,6 @@ import 'package:gym/presentation/screens/settings_screen.dart';
 import 'package:gym/presentation/screens/sms_share_screen.dart';
 import 'package:gym/presentation/screens/splash_screen.dart';
 import 'package:gym/presentation/screens/view_members_screen.dart';
-import 'package:gym/service/model/members_model.dart';
 import 'package:gym/service/model/sms_model.dart';
 
 class PageRouters {
@@ -67,7 +66,7 @@ class PageRouters {
       );
     } else if (settings.name == PageResources.viewMembersScreen) {
       return CupertinoPageRoute(
-        builder: (context) => ViewMembersScreen(),
+        builder: (context) => const ViewMembersScreen(),
       );
     } else if (settings.name == PageResources.mainScreen) {
       return CupertinoPageRoute(

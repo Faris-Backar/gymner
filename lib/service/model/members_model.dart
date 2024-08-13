@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:gym/service/model/package_model.dart';
 
 class MembersModel {
@@ -13,6 +14,8 @@ class MembersModel {
   final int? packageDuration;
   final DateTime? lastFeesPaid;
   final DateTime? packageEndDate;
+  final bool? isActive;
+  final bool? isBlocked;
   const MembersModel({
     required this.uid,
     required this.registerNumber,
@@ -25,6 +28,8 @@ class MembersModel {
     this.packageDuration,
     this.lastFeesPaid,
     this.packageEndDate,
+    this.isActive,
+    this.isBlocked,
   });
 
   MembersModel copyWith({
@@ -39,6 +44,8 @@ class MembersModel {
     int? packageDuration,
     DateTime? lastFeesPaid,
     DateTime? packageEndDate,
+    bool? isActive,
+    bool? isBlocked,
   }) {
     return MembersModel(
       uid: uid ?? this.uid,
@@ -52,6 +59,8 @@ class MembersModel {
       packageDuration: packageDuration ?? this.packageDuration,
       lastFeesPaid: lastFeesPaid ?? this.lastFeesPaid,
       packageEndDate: packageEndDate ?? this.packageEndDate,
+      isActive: isActive ?? this.isActive,
+      isBlocked: isBlocked ?? this.isBlocked,
     );
   }
 
@@ -66,8 +75,10 @@ class MembersModel {
       'propicUrl': propicUrl,
       'packageModel': packageModel.toMap(),
       'packageDuration': packageDuration,
-      'lastFeesPaid': lastFeesPaid,
-      'packageEndDate': packageEndDate,
+      'lastFeesPaid': lastFeesPaid?.millisecondsSinceEpoch,
+      'packageEndDate': packageEndDate?.millisecondsSinceEpoch,
+      'isActive': isActive,
+      'isBlocked': isBlocked,
     };
   }
 
@@ -88,6 +99,8 @@ class MembersModel {
       packageEndDate: map['packageEndDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['packageEndDate'])
           : null,
+      isActive: map['isActive'],
+      isBlocked: map['isBlocked'],
     );
   }
 
@@ -98,7 +111,7 @@ class MembersModel {
 
   @override
   String toString() {
-    return 'MembersModel(uid: $uid, registerNumber: $registerNumber, name: $name, mobileNumber: $mobileNumber, age: $age, weight: $weight, propicUrl: $propicUrl, packageModel: $packageModel, packageDuration: $packageDuration, lastFeesPaid: $lastFeesPaid, packageEndDate: $packageEndDate)';
+    return 'MembersModel(uid: $uid, registerNumber: $registerNumber, name: $name, mobileNumber: $mobileNumber, age: $age, weight: $weight, propicUrl: $propicUrl, packageModel: $packageModel, packageDuration: $packageDuration, lastFeesPaid: $lastFeesPaid, packageEndDate: $packageEndDate, isActive: $isActive, isBlocked: $isBlocked)';
   }
 
   @override
@@ -116,7 +129,9 @@ class MembersModel {
         other.packageModel == packageModel &&
         other.packageDuration == packageDuration &&
         other.lastFeesPaid == lastFeesPaid &&
-        other.packageEndDate == packageEndDate;
+        other.packageEndDate == packageEndDate &&
+        other.isActive == isActive &&
+        other.isBlocked == isBlocked;
   }
 
   @override
@@ -131,6 +146,8 @@ class MembersModel {
         packageModel.hashCode ^
         packageDuration.hashCode ^
         lastFeesPaid.hashCode ^
-        packageEndDate.hashCode;
+        packageEndDate.hashCode ^
+        isActive.hashCode ^
+        isBlocked.hashCode;
   }
 }

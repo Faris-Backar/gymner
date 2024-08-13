@@ -10,6 +10,7 @@ import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
 import 'package:gym/presentation/bloc/fee_pending/fee_pending_bloc.dart';
+import 'package:gym/presentation/bloc/registration_report/registration_report_bloc.dart';
 import 'package:gym/routes/page_routers.dart';
 import 'package:sizer/sizer.dart';
 
@@ -28,6 +29,7 @@ class Gymner extends StatelessWidget {
           BlocProvider.value(value: getIt<FeePendingBloc>()),
           BlocProvider.value(value: getIt<BottomNavigationBarBloc>()),
           BlocProvider.value(value: getIt<ExpiryReportBloc>()),
+          BlocProvider.value(value: getIt<RegistrationReportBloc>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
