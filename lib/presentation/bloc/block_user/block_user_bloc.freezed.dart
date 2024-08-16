@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'registration_report_bloc.dart';
+part of 'block_user_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,119 +15,180 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$RegistrationReportEvent {
+mixin _$BlockUserEvent {
+  String get uuid => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getRegistrationReport,
+    required TResult Function(String uuid, bool status) blockUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getRegistrationReport,
+    TResult? Function(String uuid, bool status)? blockUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getRegistrationReport,
+    TResult Function(String uuid, bool status)? blockUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) getRegistrationReport,
+    required TResult Function(_BlockUser value) blockUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? getRegistrationReport,
+    TResult? Function(_BlockUser value)? blockUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? getRegistrationReport,
+    TResult Function(_BlockUser value)? blockUser,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $BlockUserEventCopyWith<BlockUserEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RegistrationReportEventCopyWith<$Res> {
-  factory $RegistrationReportEventCopyWith(RegistrationReportEvent value,
-          $Res Function(RegistrationReportEvent) then) =
-      _$RegistrationReportEventCopyWithImpl<$Res, RegistrationReportEvent>;
+abstract class $BlockUserEventCopyWith<$Res> {
+  factory $BlockUserEventCopyWith(
+          BlockUserEvent value, $Res Function(BlockUserEvent) then) =
+      _$BlockUserEventCopyWithImpl<$Res, BlockUserEvent>;
+  @useResult
+  $Res call({String uuid, bool status});
 }
 
 /// @nodoc
-class _$RegistrationReportEventCopyWithImpl<$Res,
-        $Val extends RegistrationReportEvent>
-    implements $RegistrationReportEventCopyWith<$Res> {
-  _$RegistrationReportEventCopyWithImpl(this._value, this._then);
+class _$BlockUserEventCopyWithImpl<$Res, $Val extends BlockUserEvent>
+    implements $BlockUserEventCopyWith<$Res> {
+  _$BlockUserEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uuid = null,
+    Object? status = null,
+  }) {
+    return _then(_value.copyWith(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
-  factory _$$StartedImplCopyWith(
-          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
-      __$$StartedImplCopyWithImpl<$Res>;
+abstract class _$$BlockUserImplCopyWith<$Res>
+    implements $BlockUserEventCopyWith<$Res> {
+  factory _$$BlockUserImplCopyWith(
+          _$BlockUserImpl value, $Res Function(_$BlockUserImpl) then) =
+      __$$BlockUserImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String uuid, bool status});
 }
 
 /// @nodoc
-class __$$StartedImplCopyWithImpl<$Res>
-    extends _$RegistrationReportEventCopyWithImpl<$Res, _$StartedImpl>
-    implements _$$StartedImplCopyWith<$Res> {
-  __$$StartedImplCopyWithImpl(
-      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
+class __$$BlockUserImplCopyWithImpl<$Res>
+    extends _$BlockUserEventCopyWithImpl<$Res, _$BlockUserImpl>
+    implements _$$BlockUserImplCopyWith<$Res> {
+  __$$BlockUserImplCopyWithImpl(
+      _$BlockUserImpl _value, $Res Function(_$BlockUserImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uuid = null,
+    Object? status = null,
+  }) {
+    return _then(_$BlockUserImpl(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+class _$BlockUserImpl implements _BlockUser {
+  const _$BlockUserImpl({required this.uuid, required this.status});
+
+  @override
+  final String uuid;
+  @override
+  final bool status;
 
   @override
   String toString() {
-    return 'RegistrationReportEvent.getRegistrationReport()';
+    return 'BlockUserEvent.blockUser(uuid: $uuid, status: $status)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$BlockUserImpl &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, uuid, status);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BlockUserImplCopyWith<_$BlockUserImpl> get copyWith =>
+      __$$BlockUserImplCopyWithImpl<_$BlockUserImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getRegistrationReport,
+    required TResult Function(String uuid, bool status) blockUser,
   }) {
-    return getRegistrationReport();
+    return blockUser(uuid, status);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getRegistrationReport,
+    TResult? Function(String uuid, bool status)? blockUser,
   }) {
-    return getRegistrationReport?.call();
+    return blockUser?.call(uuid, status);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getRegistrationReport,
+    TResult Function(String uuid, bool status)? blockUser,
     required TResult orElse(),
   }) {
-    if (getRegistrationReport != null) {
-      return getRegistrationReport();
+    if (blockUser != null) {
+      return blockUser(uuid, status);
     }
     return orElse();
   }
@@ -135,44 +196,54 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) getRegistrationReport,
+    required TResult Function(_BlockUser value) blockUser,
   }) {
-    return getRegistrationReport(this);
+    return blockUser(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? getRegistrationReport,
+    TResult? Function(_BlockUser value)? blockUser,
   }) {
-    return getRegistrationReport?.call(this);
+    return blockUser?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? getRegistrationReport,
+    TResult Function(_BlockUser value)? blockUser,
     required TResult orElse(),
   }) {
-    if (getRegistrationReport != null) {
-      return getRegistrationReport(this);
+    if (blockUser != null) {
+      return blockUser(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements RegistrationReportEvent {
-  const factory _Started() = _$StartedImpl;
+abstract class _BlockUser implements BlockUserEvent {
+  const factory _BlockUser(
+      {required final String uuid,
+      required final bool status}) = _$BlockUserImpl;
+
+  @override
+  String get uuid;
+  @override
+  bool get status;
+  @override
+  @JsonKey(ignore: true)
+  _$$BlockUserImplCopyWith<_$BlockUserImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$RegistrationReportState {
+mixin _$BlockUserState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(RegistrationReportModel registrationReport)
-        loaded,
+    required TResult Function() loaded,
     required TResult Function(String error) failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -180,7 +251,7 @@ mixin _$RegistrationReportState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(RegistrationReportModel registrationReport)? loaded,
+    TResult? Function()? loaded,
     TResult? Function(String error)? failed,
   }) =>
       throw _privateConstructorUsedError;
@@ -188,7 +259,7 @@ mixin _$RegistrationReportState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(RegistrationReportModel registrationReport)? loaded,
+    TResult Function()? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) =>
@@ -221,17 +292,16 @@ mixin _$RegistrationReportState {
 }
 
 /// @nodoc
-abstract class $RegistrationReportStateCopyWith<$Res> {
-  factory $RegistrationReportStateCopyWith(RegistrationReportState value,
-          $Res Function(RegistrationReportState) then) =
-      _$RegistrationReportStateCopyWithImpl<$Res, RegistrationReportState>;
+abstract class $BlockUserStateCopyWith<$Res> {
+  factory $BlockUserStateCopyWith(
+          BlockUserState value, $Res Function(BlockUserState) then) =
+      _$BlockUserStateCopyWithImpl<$Res, BlockUserState>;
 }
 
 /// @nodoc
-class _$RegistrationReportStateCopyWithImpl<$Res,
-        $Val extends RegistrationReportState>
-    implements $RegistrationReportStateCopyWith<$Res> {
-  _$RegistrationReportStateCopyWithImpl(this._value, this._then);
+class _$BlockUserStateCopyWithImpl<$Res, $Val extends BlockUserState>
+    implements $BlockUserStateCopyWith<$Res> {
+  _$BlockUserStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -248,7 +318,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$RegistrationReportStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -262,7 +332,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'RegistrationReportState.initial()';
+    return 'BlockUserState.initial()';
   }
 
   @override
@@ -279,8 +349,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(RegistrationReportModel registrationReport)
-        loaded,
+    required TResult Function() loaded,
     required TResult Function(String error) failed,
   }) {
     return initial();
@@ -291,7 +360,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(RegistrationReportModel registrationReport)? loaded,
+    TResult? Function()? loaded,
     TResult? Function(String error)? failed,
   }) {
     return initial?.call();
@@ -302,7 +371,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(RegistrationReportModel registrationReport)? loaded,
+    TResult Function()? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -350,7 +419,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements RegistrationReportState {
+abstract class _Initial implements BlockUserState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -363,7 +432,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$RegistrationReportStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -377,7 +446,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'RegistrationReportState.loading()';
+    return 'BlockUserState.loading()';
   }
 
   @override
@@ -394,8 +463,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(RegistrationReportModel registrationReport)
-        loaded,
+    required TResult Function() loaded,
     required TResult Function(String error) failed,
   }) {
     return loading();
@@ -406,7 +474,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(RegistrationReportModel registrationReport)? loaded,
+    TResult? Function()? loaded,
     TResult? Function(String error)? failed,
   }) {
     return loading?.call();
@@ -417,7 +485,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(RegistrationReportModel registrationReport)? loaded,
+    TResult Function()? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -465,7 +533,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements RegistrationReportState {
+abstract class _Loading implements BlockUserState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -474,73 +542,45 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({RegistrationReportModel registrationReport});
 }
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$RegistrationReportStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? registrationReport = null,
-  }) {
-    return _then(_$LoadedImpl(
-      registrationReport: null == registrationReport
-          ? _value.registrationReport
-          : registrationReport // ignore: cast_nullable_to_non_nullable
-              as RegistrationReportModel,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required this.registrationReport});
-
-  @override
-  final RegistrationReportModel registrationReport;
+  const _$LoadedImpl();
 
   @override
   String toString() {
-    return 'RegistrationReportState.loaded(registrationReport: $registrationReport)';
+    return 'BlockUserState.loaded()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            (identical(other.registrationReport, registrationReport) ||
-                other.registrationReport == registrationReport));
+        (other.runtimeType == runtimeType && other is _$LoadedImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, registrationReport);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(RegistrationReportModel registrationReport)
-        loaded,
+    required TResult Function() loaded,
     required TResult Function(String error) failed,
   }) {
-    return loaded(registrationReport);
+    return loaded();
   }
 
   @override
@@ -548,10 +588,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(RegistrationReportModel registrationReport)? loaded,
+    TResult? Function()? loaded,
     TResult? Function(String error)? failed,
   }) {
-    return loaded?.call(registrationReport);
+    return loaded?.call();
   }
 
   @override
@@ -559,12 +599,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(RegistrationReportModel registrationReport)? loaded,
+    TResult Function()? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(registrationReport);
+      return loaded();
     }
     return orElse();
   }
@@ -607,15 +647,8 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements RegistrationReportState {
-  const factory _Loaded(
-          {required final RegistrationReportModel registrationReport}) =
-      _$LoadedImpl;
-
-  RegistrationReportModel get registrationReport;
-  @JsonKey(ignore: true)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Loaded implements BlockUserState {
+  const factory _Loaded() = _$LoadedImpl;
 }
 
 /// @nodoc
@@ -629,7 +662,7 @@ abstract class _$$FailedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$FailedImplCopyWithImpl<$Res>
-    extends _$RegistrationReportStateCopyWithImpl<$Res, _$FailedImpl>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$FailedImpl>
     implements _$$FailedImplCopyWith<$Res> {
   __$$FailedImplCopyWithImpl(
       _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
@@ -659,7 +692,7 @@ class _$FailedImpl implements _Failed {
 
   @override
   String toString() {
-    return 'RegistrationReportState.failed(error: $error)';
+    return 'BlockUserState.failed(error: $error)';
   }
 
   @override
@@ -684,8 +717,7 @@ class _$FailedImpl implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(RegistrationReportModel registrationReport)
-        loaded,
+    required TResult Function() loaded,
     required TResult Function(String error) failed,
   }) {
     return failed(error);
@@ -696,7 +728,7 @@ class _$FailedImpl implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(RegistrationReportModel registrationReport)? loaded,
+    TResult? Function()? loaded,
     TResult? Function(String error)? failed,
   }) {
     return failed?.call(error);
@@ -707,7 +739,7 @@ class _$FailedImpl implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(RegistrationReportModel registrationReport)? loaded,
+    TResult Function()? loaded,
     TResult Function(String error)? failed,
     required TResult orElse(),
   }) {
@@ -755,7 +787,7 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements RegistrationReportState {
+abstract class _Failed implements BlockUserState {
   const factory _Failed({required final String error}) = _$FailedImpl;
 
   String get error;

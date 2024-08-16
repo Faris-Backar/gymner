@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gym/core/resources/page_resources.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:gym/core/resources/style_resources.dart';
@@ -29,37 +28,33 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () =>
-          Navigator.of(context).pushNamed(PageResources.viewMembersScreen),
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: StyleResources.accentColor,
-          border: isCardTapped
-              ? Border.all(color: StyleResources.primaryColor)
-              : null,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildProfileImage(),
-            SizedBox(width: 1.w),
-            Expanded(
-              flex: 9,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildMemberInfo(),
-                  SizedBox(height: 2.h),
-                  _buildPlanDetails(),
-                ],
-              ),
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: StyleResources.accentColor,
+        border: isCardTapped
+            ? Border.all(color: StyleResources.primaryColor)
+            : null,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildProfileImage(),
+          SizedBox(width: 1.w),
+          Expanded(
+            flex: 9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildMemberInfo(),
+                SizedBox(height: 2.h),
+                _buildPlanDetails(),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -76,7 +71,7 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
               ? DecorationImage(
                   image: CachedNetworkImageProvider(
                       widget.membersModel.propicUrl!),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                   scale: .5)
               : null,

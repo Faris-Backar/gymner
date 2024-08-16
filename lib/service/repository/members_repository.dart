@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gym/core/constants/dashboard_constants.dart';
@@ -140,5 +142,41 @@ class MembersRepository {
       }
       return member.lastFeesPaid!.isBefore(DateTime.now());
     }).toList();
+  }
+
+  Future<void> updateIsActive(
+      {required String memberId, required bool isActive}) async {
+    try {
+      DocumentReference memberDoc =
+          db.collection(FirebaseResources.members).doc(memberId);
+      await memberDoc.update({
+        'isActive': isActive,
+      });
+
+      log('Successfully updated isActive for memberId: $memberId');
+    } catch (e) {
+      log(
+        'Failed to update isActive:',
+        error: e,
+      );
+    }
+  }
+
+  Future<void> updateIsBlock(
+      {required String memberId, required bool isBlocked}) async {
+    try {
+      DocumentReference memberDoc =
+          db.collection(FirebaseResources.members).doc(memberId);
+      await memberDoc.update({
+        'isBlocked': isBlocked,
+      });
+
+      log('Successfully updated isActive for memberId: $memberId');
+    } catch (e) {
+      log(
+        'Failed to update isActive:',
+        error: e,
+      );
+    }
   }
 }

@@ -34,6 +34,7 @@ class Gymner extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            useMaterial3: false,
             fontFamily: 'Montserrat',
             scaffoldBackgroundColor: StyleResources.scaffoldBackgroundColor,
             appBarTheme: const AppBarTheme(

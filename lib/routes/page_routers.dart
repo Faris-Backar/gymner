@@ -14,6 +14,7 @@ import 'package:gym/presentation/screens/settings_screen.dart';
 import 'package:gym/presentation/screens/sms_share_screen.dart';
 import 'package:gym/presentation/screens/splash_screen.dart';
 import 'package:gym/presentation/screens/view_members_screen.dart';
+import 'package:gym/service/model/members_model.dart';
 import 'package:gym/service/model/sms_model.dart';
 
 class PageRouters {
@@ -65,8 +66,11 @@ class PageRouters {
         builder: (context) => const MemberScreen(),
       );
     } else if (settings.name == PageResources.viewMembersScreen) {
+      final memberDetails = settings.arguments as MembersModel;
       return CupertinoPageRoute(
-        builder: (context) => const ViewMembersScreen(),
+        builder: (context) => ViewMembersScreen(
+          membersModel: memberDetails,
+        ),
       );
     } else if (settings.name == PageResources.mainScreen) {
       return CupertinoPageRoute(
