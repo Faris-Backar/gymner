@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/asset_resources.dart';
+import 'package:gym/core/resources/firebase_resources.dart';
 import 'package:gym/core/resources/functions.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
@@ -76,6 +77,7 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
                     width: 40.w,
                     child: PrimaryButton(
                         label: 'Search',
+                        // backgroundColor: StyleResources.primaryColor,
                         ontap: () {
                           if (_searchController.text.isNotEmpty) {
                             _membersBloc.add(GetMembersEvent());
@@ -280,8 +282,10 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
                                       ? int.parse(_durationController.text)
                                       : 30;
                               var feePaymentDetails = FeesPaymentModel(
+                                transactionType: FirebaseResources.income,
+                                createdAt: DateTime.now(),
                                 memberuid: membersUid!,
-                                feesDate: selectedDate,
+                                paymentDate: selectedDate,
                                 feesPackage: packageModel!,
                                 totalDuration: duration,
                                 amountpayed:

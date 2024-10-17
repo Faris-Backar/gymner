@@ -2,14 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart' as di;
+import 'package:gym/presentation/bloc/activate_user/activate_user_bloc.dart';
 import 'package:gym/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym/presentation/bloc/block_user/block_user_bloc.dart';
 import 'package:gym/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:gym/presentation/bloc/expenses/expenses_bloc.dart';
 import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
 import 'package:gym/presentation/bloc/fee_pending/fee_pending_bloc.dart';
 import 'package:gym/presentation/bloc/members/members_bloc.dart';
 import 'package:gym/presentation/bloc/registration_report/registration_report_bloc.dart';
+import 'package:gym/service/repository/expense_repository.dart';
 import 'package:gym/service/repository/fee_payment_repository.dart';
 import 'package:gym/service/repository/members_repository.dart';
 import 'package:gym/service/repository/package_repository.dart';
@@ -43,4 +47,12 @@ void setup() {
       () => ExpiryReportBloc(membersRepository: getIt<MembersRepository>()));
   getIt.registerLazySingleton<RegistrationReportBloc>(() =>
       RegistrationReportBloc(membersRepository: getIt<MembersRepository>()));
+  getIt.registerLazySingleton<ActivateUserBloc>(
+      () => ActivateUserBloc(membersRepository: getIt<MembersRepository>()));
+  getIt.registerLazySingleton<BlockUserBloc>(
+      () => BlockUserBloc(membersRepository: getIt<MembersRepository>()));
+  getIt.registerLazySingleton<ExpenseRepository>(
+      () => ExpenseRepository(firebaseDb: getIt<FirebaseFirestore>()));
+  getIt.registerLazySingleton<ExpensesBloc>(
+      () => ExpensesBloc(expenseRepository: getIt<ExpenseRepository>()));
 }

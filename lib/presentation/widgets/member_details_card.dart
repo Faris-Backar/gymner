@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gym/core/resources/functions.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:gym/core/resources/style_resources.dart';
@@ -131,7 +132,9 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
               style: TextStyle(color: StyleResources.greyBlack, fontSize: 8.sp),
             ),
             Text(
-              "01 Aug 2021",
+              dateFormate(
+                  date: DateTime.now().add(Duration(
+                      days: widget.membersModel.packageDuration ?? 0))),
               style: TextStyle(
                 color: StyleResources.black,
                 fontSize: 9.sp,
@@ -146,14 +149,31 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
               "Days Remaining",
               style: TextStyle(color: StyleResources.greyBlack, fontSize: 8.sp),
             ),
-            Text(
-              "10",
-              style: TextStyle(
-                color: StyleResources.black,
-                fontSize: 9.sp,
-                fontWeight: FontWeight.w500,
+            if (widget.membersModel.packageEndDate?.isBefore(DateTime.now()) ==
+                true)
+              Text(
+                widget.membersModel.packageEndDate != null
+                    ? calculatePackageDays(widget.membersModel.packageEndDate!)
+                    : "",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
+            if (widget.membersModel.packageEndDate?.isAfter(DateTime.now()) ==
+                true)
+              Text(
+                widget.membersModel.packageEndDate != null
+                    ? calculateDaysAfterExpiration(
+                        widget.membersModel.packageEndDate!)
+                    : "",
+                style: TextStyle(
+                  color: StyleResources.errorColor,
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
           ],
         ),
       ],

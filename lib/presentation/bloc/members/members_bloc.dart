@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:gym/core/constants/dashboard_constants.dart';
 
 import 'package:gym/service/model/members_model.dart';
 import 'package:gym/service/repository/members_repository.dart';
@@ -23,10 +24,12 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     on<UploadProfileImageEvent>(_uploadProfileImage);
     on<InitMembersEvent>(_init);
     on<GetIndividualMemberByUidEvent>(_getIndividualMembersbyUid);
+    on<GetMembersByFilterEvent>(_getMembersByFilterValue);
   }
 
   _createMembers(CreateMembersEvent event, Emitter<MembersState> emit) async {
     emit(MembersInitial());
+
     emit(MembersLoadding());
     try {
       await membersRepository.createMember(membersModel: event.membersModel);
@@ -42,6 +45,32 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
     try {
       membersList = await membersRepository.getMembers();
       emit(GetMembersLoaded(membersList: membersList));
+    } catch (e) {
+      log(e.toString());
+      emit(MembersFailed(error: e.toString()));
+    }
+  }
+
+  _getMembersByFilterValue(
+      GetMembersByFilterEvent event, Emitter<MembersState> emit) async {
+    emit(MembersInitial());
+    emit(MembersLoadding());
+
+    try {
+      List<MembersModel> filteredMemberList = [];
+
+      // Apply filter logic
+      filteredMemberList = filterMembers(
+        membersList: membersList,
+        statusFilter: event.filterActiveType?.toLowerCase() ??
+            DashboardConstants.all, // Active, Inactive, or All
+        packageExpireFilter: event.filterByPackageExpiry?.toLowerCase() ??
+            DashboardConstants.upcomingExpiryReport[0], // Expiry filter
+        packageNameFilter: event.filterByPackageType ?? 'All', // Package filter
+      );
+
+      // Emit the filtered list
+      emit(GetMembersLoaded(membersList: filteredMemberList));
     } catch (e) {
       log(e.toString());
       emit(MembersFailed(error: e.toString()));
@@ -107,5 +136,57 @@ class MembersBloc extends Bloc<MembersEvent, MembersState> {
 
   _init(InitMembersEvent event, Emitter<MembersState> emit) {
     emit(MembersInitial());
+  }
+
+  List<MembersModel> filterMembers({
+    required List<MembersModel> membersList,
+    String statusFilter = 'All',
+    String packageExpireFilter = 'All',
+    String packageNameFilter = 'All',
+  }) {
+    final now = DateTime.now();
+
+    return membersList.where((member) {
+      // Filter by active/inactive status
+      if (statusFilter != 'All') {
+        if (statusFilter == 'active' && !(member.isActive ?? false)) {
+          return false;
+        }
+        if (statusFilter == 'inactive' && (member.isActive ?? true)) {
+          return false;
+        }
+      }
+
+      // Filter by package expiration
+      if (packageExpireFilter != 'All') {
+        if (member.packageEndDate == null) return false;
+        final daysLeft = member.packageEndDate!.difference(now).inDays;
+        log("Expiry Days = $daysLeft /n package endDate => ${member.packageEndDate}");
+        switch (packageExpireFilter) {
+          case '1-3 days':
+            if (daysLeft < 1 || daysLeft > 3) return false;
+            break;
+          case '4-7 days':
+            if (daysLeft < 4 || daysLeft > 7) return false;
+            break;
+          case '2 weeks':
+            if (daysLeft < 8 || daysLeft > 14) return false;
+            break;
+          case 'expired':
+            if (daysLeft > 0) return false;
+            break;
+          default:
+            break;
+        }
+      }
+
+      // Filter by package name
+      if (packageNameFilter != 'All' &&
+          member.packageModel.name != packageNameFilter) {
+        return false;
+      }
+
+      return true;
+    }).toList();
   }
 }

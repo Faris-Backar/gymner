@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
+import 'package:gym/presentation/bloc/activate_user/activate_user_bloc.dart';
 import 'package:gym/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym/presentation/bloc/block_user/block_user_bloc.dart';
 import 'package:gym/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:gym/presentation/bloc/expenses/expenses_bloc.dart';
 import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/fee_package/package_cubit.dart';
 import 'package:gym/presentation/bloc/fee_payment/fee_payment_bloc.dart';
@@ -30,6 +33,9 @@ class Gymner extends StatelessWidget {
           BlocProvider.value(value: getIt<BottomNavigationBarBloc>()),
           BlocProvider.value(value: getIt<ExpiryReportBloc>()),
           BlocProvider.value(value: getIt<RegistrationReportBloc>()),
+          BlocProvider.value(value: getIt<ActivateUserBloc>()),
+          BlocProvider.value(value: getIt<BlockUserBloc>()),
+          BlocProvider.value(value: getIt<ExpensesBloc>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

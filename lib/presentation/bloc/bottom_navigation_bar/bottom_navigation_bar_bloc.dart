@@ -3,10 +3,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gym/presentation/screens/fee_payment_screen.dart';
 import 'package:gym/presentation/screens/home_screen.dart';
 import 'package:gym/presentation/screens/member_screen.dart';
-import 'package:gym/presentation/screens/package_screen.dart';
+import 'package:gym/presentation/screens/settings_screen.dart';
+import 'package:gym/presentation/screens/transaction_screen.dart';
 
 part 'bottom_navigation_bar_event.dart';
 part 'bottom_navigation_bar_state.dart';
@@ -21,8 +21,8 @@ class BottomNavigationBarBloc
   List<Widget> tabPages = const [
     HomeScreen(),
     MemberScreen(),
-    PackageScreen(),
-    FeePaymentScreen(),
+    TransactionScreen(),
+    SettingsScreen(),
   ];
 
   _onPageTapped(

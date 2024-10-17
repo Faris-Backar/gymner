@@ -25,4 +25,10 @@ class GetFeesPaymentDetailsByIdEvent extends FeePaymentEvent {
   List<Object> get props => [memberUid];
 }
 
-class GetRecentTransactionsEvent extends FeePaymentEvent {}
+class GetRecentTransactionsEvent extends FeePaymentEvent {
+  final DateTime fromDate;
+  final DateTime toDate;
+
+  const GetRecentTransactionsEvent(
+      {required this.fromDate, required this.toDate});
+}

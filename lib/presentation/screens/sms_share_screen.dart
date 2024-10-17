@@ -11,9 +11,9 @@ import 'package:permission_handler/permission_handler.dart';
 class SmsShareScreen extends StatefulWidget {
   final List<SmsModel> pendingMembersList;
   const SmsShareScreen({
-    Key? key,
+    super.key,
     required this.pendingMembersList,
-  }) : super(key: key);
+  });
 
   @override
   State<SmsShareScreen> createState() => _SmsShareScreenState();

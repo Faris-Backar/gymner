@@ -5,7 +5,7 @@ abstract class MembersEvent extends Equatable {
   const MembersEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class CreateMembersEvent extends MembersEvent {
@@ -18,6 +18,20 @@ class CreateMembersEvent extends MembersEvent {
 }
 
 class GetMembersEvent extends MembersEvent {}
+
+class GetMembersByFilterEvent extends MembersEvent {
+  final String? filterActiveType;
+  final String? filterByPackageExpiry;
+  final String? filterByPackageType;
+  const GetMembersByFilterEvent({
+    this.filterActiveType,
+    this.filterByPackageExpiry,
+    this.filterByPackageType,
+  });
+  @override
+  List<Object?> get props =>
+      [filterActiveType, filterByPackageExpiry, filterByPackageType];
+}
 
 class GetIndividualMemberEvent extends MembersEvent {
   final String regNumber;

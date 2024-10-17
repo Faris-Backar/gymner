@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/presentation/screens/add_member_screen.dart';
 import 'package:gym/presentation/screens/create_package_screen.dart';
+import 'package:gym/presentation/screens/expenses_screen.dart';
 import 'package:gym/presentation/screens/fee_payment_screen.dart';
 import 'package:gym/presentation/screens/home_screen.dart';
+import 'package:gym/presentation/screens/individual_member_transaction.dart';
 import 'package:gym/presentation/screens/landing_screen.dart';
 import 'package:gym/presentation/screens/login_screen.dart';
 import 'package:gym/presentation/screens/main_screen.dart';
@@ -75,6 +77,17 @@ class PageRouters {
     } else if (settings.name == PageResources.mainScreen) {
       return CupertinoPageRoute(
         builder: (context) => const MainScreen(),
+      );
+    } else if (settings.name == PageResources.individualMemberTransaction) {
+      final memberUuid = settings.arguments as String;
+      return CupertinoPageRoute(
+        builder: (context) => IndividualMemberTransaction(
+          memberUuid: memberUuid,
+        ),
+      );
+    } else if (settings.name == PageResources.expensesScreen) {
+      return CupertinoPageRoute(
+        builder: (context) => const ExpensesScreen(),
       );
     } else {
       return CupertinoPageRoute(

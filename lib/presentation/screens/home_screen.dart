@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym/core/resources/page_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/expiry_report/expiry_report_bloc.dart';
 import 'package:gym/presentation/bloc/registration_report/registration_report_bloc.dart';
@@ -10,15 +11,28 @@ import 'package:sizer/sizer.dart';
 import 'package:gym/core/constants/dashboard_constants.dart';
 import 'package:gym/core/resources/style_resources.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+  @override
+  void initState() {
+    super.initState();
     getIt<ExpiryReportBloc>().add(const ExpiryReportEvent.getExpiryReport());
     getIt<RegistrationReportBloc>()
         .add(const RegistrationReportEvent.getRegistrationReport());
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         leading:
@@ -131,6 +145,12 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: StyleResources.primaryColor,
+        onPressed: () =>
+            Navigator.of(context).pushNamed(PageResources.feePaymentScreen),
+        child: const Icon(Icons.add_rounded),
       ),
     );
   }

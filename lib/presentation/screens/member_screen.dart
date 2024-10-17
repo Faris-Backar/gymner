@@ -21,15 +21,24 @@ class MemberScreen extends StatefulWidget {
   State<MemberScreen> createState() => _MemberScreenState();
 }
 
-class _MemberScreenState extends State<MemberScreen> {
+class _MemberScreenState extends State<MemberScreen>
+    with AutomaticKeepAliveClientMixin {
   final _searchController = TextEditingController();
   final membersBloc = getIt<MembersBloc>();
+  late PackageCubit packageCubit;
   String? filterByPackageSelectedValue;
-  String? filterByExpiredSelectedValue;
+  String? filterByExpiredSelectedValue =
+      DashboardConstants.upcomingExpiryReport[0];
+  String? filterByActiveType = DashboardConstants.all;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
+    packageCubit = getIt<PackageCubit>();
+    packageCubit.getFeePackages();
     filterByExpiredSelectedValue =
         DashboardConstants.filterByActiveStatusDropdownOptions[0];
     membersBloc.add(GetMembersEvent());
@@ -37,6 +46,7 @@ class _MemberScreenState extends State<MemberScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: StyleResources.scaffoldBackgroundColor,
       appBar: _buildAppBar(),
@@ -103,7 +113,11 @@ class _MemberScreenState extends State<MemberScreen> {
                     borderRadius: 30,
                     hint: "Search Name / Mobile Number",
                     fillColor: StyleResources.accentColor.withOpacity(0.05),
-                    prefixIcon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                    prefixIcon: const Icon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      color: StyleResources.accentColor,
+                      size: 18,
+                    ),
                     hintDecoration: TextStyle(
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w500,
@@ -122,7 +136,62 @@ class _MemberScreenState extends State<MemberScreen> {
               ),
             ),
             SizedBox(height: 1.h),
-            _buildDropdowns(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: _buildDropdown(filterByActiveType, (value) {
+                    setState(() {
+                      filterByActiveType = value;
+                    });
+                    membersBloc
+                        .add(GetMembersByFilterEvent(filterActiveType: value));
+                  }, DashboardConstants.filterByActiveStatusDropdownOptions)),
+                  SizedBox(width: 3.w),
+                  Expanded(
+                    child: BlocBuilder<PackageCubit, PackageState>(
+                      builder: (context, state) {
+                        if (state is PackageLoaded) {
+                          final packageData = state.packageList;
+                          List<String> packageNames = packageData
+                              .map((package) => package.name)
+                              .toList();
+                          return _buildDropdown(filterByPackageSelectedValue,
+                              (String? newValue) {
+                            setState(() {
+                              if (newValue != "Select Package") {
+                                filterByPackageSelectedValue = packageData
+                                    .singleWhere(
+                                        (package) => package.name == newValue)
+                                    .name;
+                              } else {
+                                filterByPackageSelectedValue =
+                                    packageData.first.name;
+                              }
+                            });
+                            membersBloc.add(GetMembersByFilterEvent(
+                                filterByPackageType: newValue));
+                          }, packageNames);
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 3.w),
+                  Expanded(
+                      child:
+                          _buildDropdown(filterByExpiredSelectedValue, (value) {
+                    setState(() {
+                      filterByExpiredSelectedValue = value;
+                    });
+                    membersBloc.add(
+                        GetMembersByFilterEvent(filterByPackageExpiry: value));
+                  }, DashboardConstants.filterByPackageExpiry)),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -139,64 +208,79 @@ class _MemberScreenState extends State<MemberScreen> {
             setState(() {
               filterByPackageSelectedValue = value;
             });
-          })),
+          }, DashboardConstants.filterByActiveStatusDropdownOptions)),
           SizedBox(width: 3.w),
           Expanded(
             child: BlocBuilder<PackageCubit, PackageState>(
               builder: (context, state) {
                 if (state is PackageLoaded) {
                   final packageData = state.packageList;
-                  List<DropdownMenuItem<String>> packageDropdownItems =
-                      packageData
-                          .map((package) => DropdownMenuItem<String>(
-                                value: package.name,
-                                child: Text(
-                                  package.name,
-                                  style: TextStyle(
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ))
-                          .toList();
-                  packageDropdownItems.insert(
-                    0,
-                    DropdownMenuItem<String>(
-                      value: "Select Package",
-                      child: Text(
-                        "Select Package",
-                        style: TextStyle(
-                            fontSize: 10.sp, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  );
-                  return Container(
-                    height: 5.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: StyleResources.accentColor,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButtonFormField<String>(
-                        isExpanded: true,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        value: filterByPackageSelectedValue,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            if (newValue != "Select Package") {
-                              filterByPackageSelectedValue = packageData
-                                  .singleWhere(
-                                      (package) => package.name == newValue)
-                                  .name;
-                            } else {
-                              filterByPackageSelectedValue =
-                                  packageData.first.name;
-                            }
-                          });
-                        },
-                        items: packageDropdownItems,
-                      ),
-                    ),
-                  );
+                  List<String> packageNames =
+                      packageData.map((package) => package.name).toList();
+                  // List<DropdownMenuItem<String>> packageDropdownItems =
+                  //     packageData
+                  //         .map((package) => DropdownMenuItem<String>(
+                  //               value: package.name,
+                  //               child: Text(
+                  //                 package.name,
+                  //                 style: TextStyle(
+                  //                     fontSize: 10.sp,
+                  //                     fontWeight: FontWeight.w500),
+                  //               ),
+                  //             ))
+                  //         .toList();
+                  // packageDropdownItems.insert(
+                  //   0,
+                  //   DropdownMenuItem<String>(
+                  //     value: "Select Package",
+                  //     child: Text(
+                  //       "Select Package",
+                  //       style: TextStyle(
+                  //           fontSize: 10.sp, fontWeight: FontWeight.w500),
+                  //     ),
+                  //   ),
+                  // );
+                  // return Container(
+                  //   height: 5.h,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     color: StyleResources.accentColor,
+                  //   ),
+                  //   child: DropdownButtonHideUnderline(
+                  //     child: DropdownButtonFormField<String>(
+                  //       isExpanded: true,
+                  //       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  //       value: filterByPackageSelectedValue,
+                  //       onChanged: (String? newValue) {
+                  //         setState(() {
+                  //           if (newValue != "Select Package") {
+                  //             filterByPackageSelectedValue = packageData
+                  //                 .singleWhere(
+                  //                     (package) => package.name == newValue)
+                  //                 .name;
+                  //           } else {
+                  //             filterByPackageSelectedValue =
+                  //                 packageData.first.name;
+                  //           }
+                  //         });
+                  //       },
+                  //       items: packageDropdownItems,
+                  //     ),
+                  //   ),
+                  // );
+
+                  return _buildDropdown(filterByPackageSelectedValue,
+                      (String? newValue) {
+                    setState(() {
+                      if (newValue != "Select Package") {
+                        filterByPackageSelectedValue = packageData
+                            .singleWhere((package) => package.name == newValue)
+                            .name;
+                      } else {
+                        filterByPackageSelectedValue = packageData.first.name;
+                      }
+                    });
+                  }, packageNames);
                 }
                 return const SizedBox.shrink();
               },
@@ -207,8 +291,11 @@ class _MemberScreenState extends State<MemberScreen> {
     );
   }
 
-  Widget _buildDropdown(
-      String? selectedValue, ValueChanged<String?> onChanged) {
+  Widget _buildDropdown(String? selectedValue, ValueChanged<String?> onChanged,
+      List<String> dropdownList) {
+    if (selectedValue != null && !dropdownList.contains(selectedValue)) {
+      selectedValue = null;
+    }
     return Container(
       height: 5.h,
       decoration: BoxDecoration(
@@ -221,8 +308,7 @@ class _MemberScreenState extends State<MemberScreen> {
           isExpanded: true,
           style: const TextStyle(color: Colors.black),
           onChanged: onChanged,
-          items: DashboardConstants.filterByActiveStatusDropdownOptions
-              .map<DropdownMenuItem<String>>((String value) {
+          items: dropdownList.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Padding(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gym/core/resources/firebase_resources.dart';
 import 'package:gym/di/di.dart';
@@ -19,13 +21,21 @@ class FeesPaymentRepsoitory {
         .set(feesPaymentModel.toMap())
         .then((value) {
       final packageExpiryDate =
-          DateTime.now().add(Duration(days: feesPaymentModel.totalDuration));
+          DateTime.now().add(Duration(days: feesPaymentModel.totalDuration!));
       firebaseDb.collection('members').doc(feesPaymentModel.memberuid).update({
         'packageDuration': feesPaymentModel.totalDuration,
         'lastFeesPaid': DateTime.now().millisecondsSinceEpoch,
         'packageEndDate': packageExpiryDate.millisecondsSinceEpoch
       });
     });
+  }
+
+  newExpense({required FeesPaymentModel feesPaymentModel}) {
+    final uid = getIt<Uuid>();
+    return firebaseDb
+        .collection(FirebaseResources.payment)
+        .doc(uid.v4())
+        .set(feesPaymentModel.toMap());
   }
 
   Future<List<FeesPaymentModel>> getFeePaymentByDate(
@@ -59,12 +69,23 @@ class FeesPaymentRepsoitory {
             value.docs.map((e) => FeesPaymentModel.fromMap(e.data())).toList());
   }
 
-  Future<List<FeesPaymentModel>> getRecentTransactions() {
-    return firebaseDb
+  Future<List<FeesPaymentModel>> getRecentTransactions({
+    required DateTime fromDate,
+    required DateTime toDate,
+  }) async {
+    log("formDate => ${fromDate.millisecondsSinceEpoch}, toDate => ${toDate.millisecondsSinceEpoch}");
+    var result = await firebaseDb
         .collection(FirebaseResources.payment)
-        .limit(10)
-        .get()
-        .then((value) =>
-            value.docs.map((e) => FeesPaymentModel.fromMap(e.data())).toList());
+        .where('paymentDate',
+            isGreaterThanOrEqualTo: fromDate.millisecondsSinceEpoch)
+        .where('paymentDate',
+            isLessThanOrEqualTo: toDate.millisecondsSinceEpoch)
+        .get();
+    if (result.docs.isEmpty) {
+      log('No transactions found in the given date range.');
+    } else {
+      log('Transactions found: ${result.docs.length}');
+    }
+    return result.docs.map((e) => FeesPaymentModel.fromMap(e.data())).toList();
   }
 }

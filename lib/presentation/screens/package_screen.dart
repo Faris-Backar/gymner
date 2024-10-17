@@ -8,7 +8,7 @@ import 'package:gym/presentation/widgets/package_card.dart';
 import 'package:sizer/sizer.dart';
 
 class PackageScreen extends StatelessWidget {
-  const PackageScreen({Key? key}) : super(key: key);
+  const PackageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class PackageScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Text(
                   'Available Packages',
                 ),

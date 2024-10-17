@@ -5,10 +5,10 @@ import '../../core/resources/style_resources.dart';
 
 class PackageCard extends StatelessWidget {
   const PackageCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.price,
-  }) : super(key: key);
+  });
   final String title;
   final String price;
 

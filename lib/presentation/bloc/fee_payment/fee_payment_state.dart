@@ -21,8 +21,16 @@ class GetFeePaymentDetailsSucess extends FeePaymentState {
 
 class GetRecentTransactionsSucess extends FeePaymentState {
   final List<FeesPaymentModel> transactionList;
+  final double totalIncome;
+  final double totalExpense;
+  final List<MembersModel> membersList;
 
-  const GetRecentTransactionsSucess({required this.transactionList});
+  const GetRecentTransactionsSucess({
+    required this.transactionList,
+    required this.totalIncome,
+    required this.totalExpense,
+    required this.membersList,
+  });
 }
 
 class FeePaymentFailed extends FeePaymentState {

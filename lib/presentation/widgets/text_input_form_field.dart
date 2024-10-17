@@ -20,6 +20,7 @@ class TextInputFormField extends StatelessWidget {
     this.hintDecoration,
     this.style,
     this.cursorColor,
+    this.maxLines,
   });
   final String? hint;
   final TextEditingController controller;
@@ -36,6 +37,7 @@ class TextInputFormField extends StatelessWidget {
   final TextStyle? hintDecoration;
   final TextStyle? style;
   final Color? cursorColor;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class TextInputFormField extends StatelessWidget {
             contentPadding ?? const EdgeInsets.symmetric(horizontal: 16.0),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        fillColor: fillColor ?? const Color(0xFF3F4F6FF),
+        fillColor: fillColor ?? const Color(0xff3f4f6ff),
         filled: true,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 5),
@@ -69,6 +71,7 @@ class TextInputFormField extends StatelessWidget {
         hintText: hint,
         hintStyle: hintDecoration,
       ),
+      maxLines: maxLines,
       style: style,
       cursorColor: cursorColor,
     );

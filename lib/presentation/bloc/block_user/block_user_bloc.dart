@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,10 +19,11 @@ class BlockUserBloc extends Bloc<BlockUserEvent, BlockUserState> {
     emit(const BlockUserState.initial());
     try {
       emit(const BlockUserState.loading());
-      await event.when(
-        blockUser: (uuid, status) =>
-            membersRepository.updateIsBlock(isBlocked: status, memberId: uuid),
-      );
+      await event.when(blockUser: (uuid, status) {
+        log("is Blocked => $status");
+        return membersRepository.updateIsBlock(
+            isBlocked: status, memberId: uuid);
+      });
       emit(const BlockUserState.loaded());
     } catch (e) {
       emit(BlockUserState.failed(error: e.toString()));

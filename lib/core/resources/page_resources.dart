@@ -14,4 +14,7 @@ class PageResources {
   static const smsScreen = '/sms';
   static const viewMembersScreen = '/view-member';
   static const mainScreen = "/main-screen";
+  static const transactionScreen = "/transaction";
+  static const individualMemberTransaction = "/individualMemberTransaction";
+  static const expensesScreen = "/expenses";
 }

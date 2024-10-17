@@ -15,11 +15,21 @@ class DashboardConstants {
     "Blocked Members"
   ];
 
-  static const filterByActiveStatusDropdownOptions = [
-    "All",
-    "Active",
-    "InActive"
+  static const filterByActiveStatusDropdownOptions = [all, active, inActive];
+
+  static const filterByPackageExpiry = [
+    "Select Filter",
+    oneToThreeDaysFilter,
+    fourToSevenDaysFilter,
+    twoWeeksFilter,
+    expired
   ];
 
-  static const filterByPackageDropdownOptions = ["All", "Active", "InActive"];
+  static const String all = "All";
+  static const String active = "Active";
+  static const String inActive = "InActive";
+  static const String oneToThreeDaysFilter = "1-3 days";
+  static const String fourToSevenDaysFilter = "4-7 days";
+  static const String twoWeeksFilter = "2 weeks";
+  static const String expired = "expired";
 }

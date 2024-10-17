@@ -6,12 +6,14 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
     required this.label,
+    this.backgroundColor,
     this.ontap,
     this.child,
   });
   final String label;
   final Function()? ontap;
   final Widget? child;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -24,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: StyleResources.black),
+              color: backgroundColor ?? StyleResources.black),
           alignment: Alignment.center,
           child: child ??
               Text(

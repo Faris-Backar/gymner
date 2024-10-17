@@ -6,24 +6,38 @@ import 'package:gym/core/resources/asset_resources.dart';
 import 'package:gym/core/resources/style_resources.dart';
 import 'package:gym/di/di.dart';
 import 'package:gym/presentation/bloc/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:gym/presentation/bloc/members/members_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     final bottomNavigationBarBloc = getIt<BottomNavigationBarBloc>();
+    getIt<MembersBloc>().add(GetMembersEvent());
     return Scaffold(
       backgroundColor: StyleResources.scaffoldBackgroundColor,
       body: BlocBuilder<BottomNavigationBarBloc, BottomNavigationState>(
-        bloc: bottomNavigationBarBloc, // Ensure the correct bloc is used
+        bloc: bottomNavigationBarBloc,
         builder: (context, state) {
           log("page state => ${state.currentIndex}");
-          return IndexedStack(
-            index: state.currentIndex, // Specify which index to display
-            children: bottomNavigationBarBloc.tabPages,
+          return PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              bottomNavigationBarBloc
+                  .add(BottomNavigationEvent.pageTapped(index: index));
+            },
+            physics: const NeverScrollableScrollPhysics(),
+            children: bottomNavigationBarBloc.tabPages, // Disable swipe
           );
         },
       ),
@@ -37,12 +51,14 @@ class MainScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildNavItem(context, state, 0, AssetResources.homeFilled,
+                _buildNavItem(context, state, 0, AssetResources.home,
                     bottomNavigationBarBloc),
-                _buildNavItem(context, state, 1, AssetResources.peopleFilled,
+                _buildNavItem(context, state, 1, AssetResources.member,
                     bottomNavigationBarBloc,
                     size: const Size(25, 25)),
-                _buildNavItem(context, state, 2, AssetResources.calenderOutline,
+                _buildNavItem(context, state, 2, AssetResources.transactions,
+                    bottomNavigationBarBloc),
+                _buildNavItem(context, state, 3, AssetResources.settings,
                     bottomNavigationBarBloc),
               ],
             ),
@@ -62,12 +78,12 @@ class MainScreen extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: () {
+          _pageController.jumpToPage(index); // Jump to tapped page
           bottomNavigationBarBloc
               .add(BottomNavigationEvent.pageTapped(index: index));
         },
-        child: SizedBox(
-          height: size?.height ?? 20,
-          width: size?.width ?? 20,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: filledIcon.endsWith(".png")
               ? Image.asset(
                   filledIcon,
