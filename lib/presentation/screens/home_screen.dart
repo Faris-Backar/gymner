@@ -11,24 +11,14 @@ import 'package:sizer/sizer.dart';
 import 'package:gym/core/constants/dashboard_constants.dart';
 import 'package:gym/core/resources/style_resources.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     getIt<ExpiryReportBloc>().add(const ExpiryReportEvent.getExpiryReport());
     getIt<RegistrationReportBloc>()
         .add(const RegistrationReportEvent.getRegistrationReport());
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading:
@@ -142,11 +132,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: StyleResources.primaryColor,
-        onPressed: () =>
-            Navigator.of(context).pushNamed(PageResources.feePaymentScreen),
-        child: const Icon(Icons.add_rounded),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: StyleResources.primaryColor,
+            heroTag: 'feePaymentButton', // Unique tag for fee payment button
+            onPressed: () =>
+                Navigator.of(context).pushNamed(PageResources.feePaymentScreen),
+            child: const Icon(Icons.currency_rupee_rounded),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          FloatingActionButton(
+            backgroundColor: StyleResources.primaryColor,
+            heroTag: 'addMemberButton', // Unique tag for add member button
+            onPressed: () =>
+                Navigator.of(context).pushNamed(PageResources.addMemberScreen),
+            child: const Icon(Icons.person_add_alt_1_rounded),
+          ),
+        ],
       ),
     );
   }

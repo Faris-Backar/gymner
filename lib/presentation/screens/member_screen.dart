@@ -99,36 +99,33 @@ class _MemberScreenState extends State<MemberScreen> {
         preferredSize: Size(100.w, 15.h),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 40,
-                child: TextInputFormField(
-                    controller: _searchController,
-                    borderRadius: 30,
-                    hint: "Search Name / Mobile Number",
-                    fillColor: StyleResources.accentColor.withOpacity(0.05),
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.magnifyingGlass,
-                      color: StyleResources.accentColor,
-                      size: 18,
-                    ),
-                    hintDecoration: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w500,
-                      color: StyleResources.accentColor.withOpacity(0.4),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 16.0,
-                    ),
-                    style: TextStyle(
-                        color: StyleResources.scaffoldBackgroundColor),
-                    cursorColor: StyleResources.primaryColor,
-                    onChanged: (searchQuery) {
-                      membersBloc.add(SearchMembersEvent(query: searchQuery));
-                    }),
-              ),
+            SizedBox(
+              height: 40,
+              child: TextInputFormField(
+                  controller: _searchController,
+                  borderRadius: 30,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0, // Ensure sufficient vertical padding
+                  ),
+                  hint: "Search Name / Mobile Number",
+                  fillColor: StyleResources.accentColor.withOpacity(0.05),
+                  prefixIcon: const Icon(
+                    FontAwesomeIcons.magnifyingGlass,
+                    color: StyleResources.accentColor,
+                    size: 18,
+                  ),
+                  hintDecoration: TextStyle(
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w500,
+                    color: StyleResources.accentColor.withOpacity(0.4),
+                  ),
+                  style:
+                      TextStyle(color: StyleResources.scaffoldBackgroundColor),
+                  cursorColor: StyleResources.primaryColor,
+                  onChanged: (searchQuery) {
+                    membersBloc.add(SearchMembersEvent(query: searchQuery));
+                  }),
             ),
             SizedBox(height: 1.h),
             Padding(
@@ -189,99 +186,6 @@ class _MemberScreenState extends State<MemberScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildDropdowns() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-              child: _buildDropdown(filterByExpiredSelectedValue, (value) {
-            setState(() {
-              filterByPackageSelectedValue = value;
-            });
-          }, DashboardConstants.filterByActiveStatusDropdownOptions)),
-          SizedBox(width: 3.w),
-          Expanded(
-            child: BlocBuilder<PackageCubit, PackageState>(
-              builder: (context, state) {
-                if (state is PackageLoaded) {
-                  final packageData = state.packageList;
-                  List<String> packageNames =
-                      packageData.map((package) => package.name).toList();
-                  // List<DropdownMenuItem<String>> packageDropdownItems =
-                  //     packageData
-                  //         .map((package) => DropdownMenuItem<String>(
-                  //               value: package.name,
-                  //               child: Text(
-                  //                 package.name,
-                  //                 style: TextStyle(
-                  //                     fontSize: 10.sp,
-                  //                     fontWeight: FontWeight.w500),
-                  //               ),
-                  //             ))
-                  //         .toList();
-                  // packageDropdownItems.insert(
-                  //   0,
-                  //   DropdownMenuItem<String>(
-                  //     value: "Select Package",
-                  //     child: Text(
-                  //       "Select Package",
-                  //       style: TextStyle(
-                  //           fontSize: 10.sp, fontWeight: FontWeight.w500),
-                  //     ),
-                  //   ),
-                  // );
-                  // return Container(
-                  //   height: 5.h,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //     color: StyleResources.accentColor,
-                  //   ),
-                  //   child: DropdownButtonHideUnderline(
-                  //     child: DropdownButtonFormField<String>(
-                  //       isExpanded: true,
-                  //       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  //       value: filterByPackageSelectedValue,
-                  //       onChanged: (String? newValue) {
-                  //         setState(() {
-                  //           if (newValue != "Select Package") {
-                  //             filterByPackageSelectedValue = packageData
-                  //                 .singleWhere(
-                  //                     (package) => package.name == newValue)
-                  //                 .name;
-                  //           } else {
-                  //             filterByPackageSelectedValue =
-                  //                 packageData.first.name;
-                  //           }
-                  //         });
-                  //       },
-                  //       items: packageDropdownItems,
-                  //     ),
-                  //   ),
-                  // );
-
-                  return _buildDropdown(filterByPackageSelectedValue,
-                      (String? newValue) {
-                    setState(() {
-                      if (newValue != "Select Package") {
-                        filterByPackageSelectedValue = packageData
-                            .singleWhere((package) => package.name == newValue)
-                            .name;
-                      } else {
-                        filterByPackageSelectedValue = packageData.first.name;
-                      }
-                    });
-                  }, packageNames);
-                }
-                return const SizedBox.shrink();
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

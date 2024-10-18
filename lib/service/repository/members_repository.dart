@@ -75,10 +75,8 @@ class MembersRepository {
     // Query Firestore
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('members')
-        .where('packageEndDate',
-            isGreaterThanOrEqualTo: now.millisecondsSinceEpoch)
-        .where('packageEndDate',
-            isLessThanOrEqualTo: threeDaysLater.millisecondsSinceEpoch)
+        .where('packageEndDate', isGreaterThanOrEqualTo: nowTimestamp)
+        .where('packageEndDate', isLessThanOrEqualTo: threeDaysLaterTimestamp)
         .get();
 
     // Convert query results to MembersModel objects
@@ -101,8 +99,7 @@ class MembersRepository {
     // Query Firestore
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('members')
-        .where('packageEndDate',
-            isGreaterThanOrEqualTo: now.millisecondsSinceEpoch)
+        .where('packageEndDate', isGreaterThanOrEqualTo: nowTimestamp)
         .where('packageEndDate', isLessThanOrEqualTo: threeDaysLaterTimestamp)
         .get();
 
