@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gym/service/model/package_model.dart';
 
 class MembersModel {
@@ -16,6 +16,7 @@ class MembersModel {
   final DateTime? packageEndDate;
   final bool? isActive;
   final bool? isBlocked;
+
   const MembersModel({
     required this.uid,
     required this.registerNumber,
@@ -64,24 +65,28 @@ class MembersModel {
     );
   }
 
+  /// Converts this model to a Map to store in Firestore
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
       'registerNumber': registerNumber,
       'name': name,
       'mobileNumber': mobileNumber,
-      'age': age,
-      'weight': weight,
-      'propicUrl': propicUrl,
+      if (age != null) 'age': age,
+      if (weight != null) 'weight': weight,
+      if (propicUrl != null) 'propicUrl': propicUrl,
       'packageModel': packageModel.toMap(),
-      'packageDuration': packageDuration,
-      'lastFeesPaid': lastFeesPaid?.millisecondsSinceEpoch,
-      'packageEndDate': packageEndDate?.millisecondsSinceEpoch,
-      'isActive': isActive,
-      'isBlocked': isBlocked,
+      if (packageDuration != null) 'packageDuration': packageDuration,
+      if (lastFeesPaid != null)
+        'lastFeesPaid': Timestamp.fromDate(lastFeesPaid!),
+      if (packageEndDate != null)
+        'packageEndDate': Timestamp.fromDate(packageEndDate!),
+      if (isActive != null) 'isActive': isActive,
+      if (isBlocked != null) 'isBlocked': isBlocked,
     };
   }
 
+  /// Converts Map data from Firestore to MembersModel
   factory MembersModel.fromMap(Map<String, dynamic> map) {
     return MembersModel(
       uid: map['uid'] ?? '',
@@ -94,18 +99,22 @@ class MembersModel {
       packageModel: PackageModel.fromMap(map['packageModel']),
       packageDuration: map['packageDuration']?.toInt(),
       lastFeesPaid: map['lastFeesPaid'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['lastFeesPaid'])
+          ? (map['lastFeesPaid'] as Timestamp)
+              .toDate() // Convert Timestamp to DateTime
           : null,
       packageEndDate: map['packageEndDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['packageEndDate'])
+          ? (map['packageEndDate'] as Timestamp)
+              .toDate() // Convert Timestamp to DateTime
           : null,
       isActive: map['isActive'],
       isBlocked: map['isBlocked'],
     );
   }
 
+  /// Converts this model to a JSON string
   String toJson() => json.encode(toMap());
 
+  /// Converts JSON string to MembersModel
   factory MembersModel.fromJson(String source) =>
       MembersModel.fromMap(json.decode(source));
 

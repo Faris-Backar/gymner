@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firebase Timestamp
 import 'package:gym/service/model/package_model.dart';
 
 class FeesPaymentModel {
@@ -15,19 +15,21 @@ class FeesPaymentModel {
   final double? pendingAmount;
   final DateTime? packageEndDate;
   final String? remarks;
-  FeesPaymentModel(
-      {required this.transactionType,
-      required this.createdAt,
-      this.amountSpend,
-      this.memberuid,
-      this.paymentDate,
-      this.feesPackage,
-      this.totalDuration,
-      this.amountpayed,
-      this.pendingAmount,
-      this.packageEndDate,
-      this.remarks,
-      this.expenseName});
+
+  FeesPaymentModel({
+    required this.transactionType,
+    required this.createdAt,
+    this.amountSpend,
+    this.memberuid,
+    this.paymentDate,
+    this.feesPackage,
+    this.totalDuration,
+    this.amountpayed,
+    this.pendingAmount,
+    this.packageEndDate,
+    this.remarks,
+    this.expenseName,
+  });
 
   FeesPaymentModel copyWith({
     String? transactionType,
@@ -58,27 +60,35 @@ class FeesPaymentModel {
   Map<String, dynamic> toMap() {
     return {
       'transactionType': transactionType,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt':
+          Timestamp.fromDate(createdAt), // Convert DateTime to Timestamp
       'amountSpend': amountSpend,
       'memberuid': memberuid,
-      'paymentDate': paymentDate?.millisecondsSinceEpoch,
+      'paymentDate': paymentDate != null
+          ? Timestamp.fromDate(paymentDate!)
+          : null, // Convert DateTime to Timestamp
       'feesPackage': feesPackage?.toMap(),
       'totalDuration': totalDuration,
       'amountpayed': amountpayed,
       'pendingAmount': pendingAmount,
-      'packageEndDate': packageEndDate?.millisecondsSinceEpoch,
+      'packageEndDate': packageEndDate != null
+          ? Timestamp.fromDate(packageEndDate!)
+          : null, // Convert DateTime to Timestamp
+      'remarks': remarks,
+      'expenseName': expenseName,
     };
   }
 
   factory FeesPaymentModel.fromMap(Map<String, dynamic> map) {
     return FeesPaymentModel(
       transactionType: map['transactionType'] ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      createdAt: (map['createdAt'] as Timestamp)
+          .toDate(), // Convert Timestamp to DateTime
       amountSpend: map['amountSpend']?.toDouble(),
       memberuid: map['memberuid'],
       paymentDate: map['paymentDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['paymentDate'])
-          : null,
+          ? (map['paymentDate'] as Timestamp).toDate()
+          : null, // Convert Timestamp to DateTime
       feesPackage: map['feesPackage'] != null
           ? PackageModel.fromMap(map['feesPackage'])
           : null,
@@ -86,8 +96,10 @@ class FeesPaymentModel {
       amountpayed: map['amountpayed']?.toDouble(),
       pendingAmount: map['pendingAmount']?.toDouble(),
       packageEndDate: map['packageEndDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['packageEndDate'])
-          : null,
+          ? (map['packageEndDate'] as Timestamp).toDate()
+          : null, // Convert Timestamp to DateTime
+      remarks: map['remarks'],
+      expenseName: map['expenseName'],
     );
   }
 

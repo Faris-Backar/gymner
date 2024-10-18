@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionsModel {
   final String? memberName;
   final String? memberUid;
-  final String? txDate;
+  final DateTime? txDate; // Changed to DateTime for handling timestamp
   final String? txAmount;
   final String? txUid;
+
   TransactionsModel({
     this.memberName,
     this.memberUid,
@@ -17,7 +19,7 @@ class TransactionsModel {
   TransactionsModel copyWith({
     String? memberName,
     String? memberUid,
-    String? txDate,
+    DateTime? txDate,
     String? txAmount,
     String? txUid,
   }) {
@@ -34,7 +36,9 @@ class TransactionsModel {
     return {
       'memberName': memberName,
       'memberUid': memberUid,
-      'txDate': txDate,
+      if (txDate != null)
+        'txDate': Timestamp.fromDate(
+            txDate!), // Convert DateTime to Firestore Timestamp
       'txAmount': txAmount,
       'txUid': txUid,
     };
@@ -44,7 +48,10 @@ class TransactionsModel {
     return TransactionsModel(
       memberName: map['memberName'],
       memberUid: map['memberUid'],
-      txDate: map['txDate'],
+      txDate: map['txDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              map['txDate'].millisecondsSinceEpoch)
+          : null, // Convert Firestore Timestamp to DateTime
       txAmount: map['txAmount'],
       txUid: map['txUid'],
     );

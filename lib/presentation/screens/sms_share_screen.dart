@@ -1,6 +1,6 @@
-import 'dart:developer';
+// import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_sms/flutter_sms.dart';
 import 'package:gym/presentation/widgets/primary_button.dart';
@@ -67,8 +67,8 @@ class _SmsShareScreenState extends State<SmsShareScreen> {
   }
 
   Future<void> _sendSMS({required List<String> recipents}) async {
-    String message =
-        "This is a remainder from POWER HOUSE GYM Pattambi. your training package validity has been expired, Please make payment inorder to continue the service.\n\nThankyou\nPOWER HOUSE ";
+    // String message =
+    "This is a remainder from POWER HOUSE GYM Pattambi. your training package validity has been expired, Please make payment inorder to continue the service.\n\nThankyou\nPOWER HOUSE ";
     // String result = await sendSMS(
     //         message: message, recipients: recipents, sendDirect: false)
     //     .catchError((onError) {

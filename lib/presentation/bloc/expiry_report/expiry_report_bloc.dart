@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gym/di/di.dart';
+import 'package:gym/presentation/bloc/members/members_bloc.dart';
 
 import 'package:gym/service/model/expiry_report_model.dart';
 import 'package:gym/service/repository/members_repository.dart';
@@ -18,6 +22,7 @@ class ExpiryReportBloc extends Bloc<ExpiryReportEvent, ExpiryReportState> {
   _getExpriryReport(
       ExpiryReportEvent event, Emitter<ExpiryReportState> emit) async {
     emit(const ExpiryReportState.initial());
+    emit(const ExpiryReportState.loading());
     try {
       final expiryDataWithIn3days =
           await membersRepository.getMembersExpiringWithin3Days();
@@ -25,12 +30,14 @@ class ExpiryReportBloc extends Bloc<ExpiryReportEvent, ExpiryReportState> {
           await membersRepository.getMembersExpiringWithin7Days();
       final expiryDataWithIn30days =
           await membersRepository.getMembersExpiringWithin30Days();
+      final expiredMembersData = membersRepository.getExpiredMembers(
+          members: getIt<MembersBloc>().membersList);
       final ExpiryReportModel expiryReportModel = ExpiryReportModel(
           expiryWithinOneToThreeDays: expiryDataWithIn3days.length,
           expiryWithinFourToSevenDays: expiryDataWithIn7days.length,
           expiryWithinSeventoThirtyDays: expiryDataWithIn30days.length,
-          expiredActiveMembers: 0);
-      emit(const ExpiryReportState.loading());
+          expiredActiveMembers: expiredMembersData.length);
+      log("Expiry Report => $expiryReportModel");
       emit(ExpiryReportState.loaded(expiryReport: expiryReportModel));
     } catch (e) {
       emit(ExpiryReportState.failed(error: e.toString()));

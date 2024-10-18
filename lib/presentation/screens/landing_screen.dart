@@ -12,7 +12,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
   }
 
   init() async {

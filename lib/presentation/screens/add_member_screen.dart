@@ -370,6 +370,8 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                           : null,
                       propicUrl: null,
                       packageModel: selectedpackages!,
+                      isActive: true,
+                      isBlocked: false,
                     );
                     _membersBloc
                         .add(CreateMembersEvent(membersModel: membersModel));

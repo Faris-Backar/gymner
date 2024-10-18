@@ -21,8 +21,7 @@ class MemberScreen extends StatefulWidget {
   State<MemberScreen> createState() => _MemberScreenState();
 }
 
-class _MemberScreenState extends State<MemberScreen>
-    with AutomaticKeepAliveClientMixin {
+class _MemberScreenState extends State<MemberScreen> {
   final _searchController = TextEditingController();
   final membersBloc = getIt<MembersBloc>();
   late PackageCubit packageCubit;
@@ -30,9 +29,6 @@ class _MemberScreenState extends State<MemberScreen>
   String? filterByExpiredSelectedValue =
       DashboardConstants.upcomingExpiryReport[0];
   String? filterByActiveType = DashboardConstants.all;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -46,7 +42,6 @@ class _MemberScreenState extends State<MemberScreen>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       backgroundColor: StyleResources.scaffoldBackgroundColor,
       appBar: _buildAppBar(),

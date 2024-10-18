@@ -24,8 +24,8 @@ class FeesPaymentRepsoitory {
           DateTime.now().add(Duration(days: feesPaymentModel.totalDuration!));
       firebaseDb.collection('members').doc(feesPaymentModel.memberuid).update({
         'packageDuration': feesPaymentModel.totalDuration,
-        'lastFeesPaid': DateTime.now().millisecondsSinceEpoch,
-        'packageEndDate': packageExpiryDate.millisecondsSinceEpoch
+        'lastFeesPaid': Timestamp.fromDate(DateTime.now()),
+        'packageEndDate': Timestamp.fromDate(packageExpiryDate),
       });
     });
   }
