@@ -1,1 +1,40 @@
-{"hosting":{"public":"public","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"club-manager-2d108","appId":"1:526763236381:android:907f77a449ccc65b5c3af4","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"club-manager-2d108","configurations":{"android":"1:526763236381:android:907f77a449ccc65b5c3af4","ios":"1:526763236381:ios:c7b854b11de5ed4d5c3af4","macos":"1:526763236381:ios:c7b854b11de5ed4d5c3af4","web":"1:526763236381:web:9c939998c1c201b25c3af4","windows":"1:526763236381:web:69c4d222bcb49bc25c3af4"}}}}}}
+{
+  "hosting": {
+    "site": "powerhousepattambi",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "club-manager-2d108",
+          "appId": "1:526763236381:android:907f77a449ccc65b5c3af4",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "club-manager-2d108",
+          "configurations": {
+            "android": "1:526763236381:android:907f77a449ccc65b5c3af4",
+            "ios": "1:526763236381:ios:c7b854b11de5ed4d5c3af4",
+            "macos": "1:526763236381:ios:c7b854b11de5ed4d5c3af4",
+            "web": "1:526763236381:web:9c939998c1c201b25c3af4",
+            "windows": "1:526763236381:web:69c4d222bcb49bc25c3af4"
+          }
+        }
+      }
+    }
+  }
+}
