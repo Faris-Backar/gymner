@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -54,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBsPM5M5QDKdA3V1Y9zCYfnaMdwOFmZI18',
-    appId: '1:526763236381:android:225b67fb5c77da895c3af4',
+    appId: '1:526763236381:android:907f77a449ccc65b5c3af4',
     messagingSenderId: '526763236381',
     projectId: 'club-manager-2d108',
     storageBucket: 'club-manager-2d108.appspot.com',
@@ -79,4 +76,14 @@ class DefaultFirebaseOptions {
     iosClientId: '526763236381-l45ttroh770mab50l0e30anlgqn8sacj.apps.googleusercontent.com',
     iosBundleId: 'com.example.gym',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCt_4tByzqZ-QEt2hwBFw1D2xSY5Tam4BA',
+    appId: '1:526763236381:web:69c4d222bcb49bc25c3af4',
+    messagingSenderId: '526763236381',
+    projectId: 'club-manager-2d108',
+    authDomain: 'club-manager-2d108.firebaseapp.com',
+    storageBucket: 'club-manager-2d108.appspot.com',
+  );
+
 }

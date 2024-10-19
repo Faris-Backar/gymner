@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "526763236381",
+    "project_id": "club-manager-2d108",
+    "storage_bucket": "club-manager-2d108.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526763236381:android:907f77a449ccc65b5c3af4",
+        "android_client_info": {
+          "package_name": "com.dev.gymner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526763236381-k3r5pidd0mnqplkm99ud1bu69v2mo76a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsPM5M5QDKdA3V1Y9zCYfnaMdwOFmZI18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526763236381-k3r5pidd0mnqplkm99ud1bu69v2mo76a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526763236381-l45ttroh770mab50l0e30anlgqn8sacj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gym"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

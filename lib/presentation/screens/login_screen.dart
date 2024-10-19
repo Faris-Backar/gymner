@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       : const Icon(Icons.visibility_rounded),
                 ),
                 isPasswordVisible: isPasswordVisible,
+                maxLines: 1,
               ),
               SizedBox(
                 height: 2.h,
