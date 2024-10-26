@@ -77,9 +77,8 @@ class FeesPaymentRepsoitory {
     var result = await firebaseDb
         .collection(FirebaseResources.payment)
         .where('paymentDate',
-            isGreaterThanOrEqualTo: fromDate.millisecondsSinceEpoch)
-        .where('paymentDate',
-            isLessThanOrEqualTo: toDate.millisecondsSinceEpoch)
+            isGreaterThanOrEqualTo: Timestamp.fromDate(fromDate))
+        .where('paymentDate', isLessThanOrEqualTo: Timestamp.fromDate(toDate))
         .get();
     if (result.docs.isEmpty) {
       log('No transactions found in the given date range.');

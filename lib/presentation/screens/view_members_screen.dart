@@ -96,7 +96,7 @@ class _ViewMembersScreenState extends State<ViewMembersScreen>
                   ),
                   buildTransactionDetailsRow(
                     label: "Package Duration",
-                    content: "${widget.membersModel.packageDuration} days",
+                    content: "${widget.membersModel.packageDuration ?? 0} days",
                   ),
                   const SizedBox(
                     height: 10,

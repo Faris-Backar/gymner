@@ -43,7 +43,8 @@ class MembersRepository {
   }) {
     return membersList.where((member) {
       final matchesName =
-          member.name.toLowerCase().contains(searchQuery.toLowerCase());
+          member.registerNumber.toString().contains(searchQuery) ||
+              member.name.toLowerCase().contains(searchQuery.toLowerCase());
 
       final matchesStatus = filterByStatusQuery == null ||
           filterByStatusQuery ==
